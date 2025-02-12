@@ -6,6 +6,7 @@
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/SubsystemBase.h>
 
+#include "units/angular_velocity.h"
 #include "units/angle.h"
 
 #include "ctre/phoenix6/TalonFX.hpp"
@@ -25,6 +26,10 @@ class CoralSubsystem : public frc2::SubsystemBase {
         //Sets the coral mechanism Angle
         frc2::CommandPtr SetAngle(units::degree_t angle);
 
+        frc2::CommandPtr SetIntake(units::angular_velocity::revolutions_per_minute_t intakeVelocity);
+
+        frc2::CommandPtr RunIntake(units::angular_velocity::revolutions_per_minute_t intakeVelocity, units::time::second_t timeout);
+
         //Gets elevator height
         units::turn_t GetAngle();
 
@@ -34,7 +39,8 @@ class CoralSubsystem : public frc2::SubsystemBase {
     private:
         //Declare the elevator motors
         ctre::phoenix6::hardware::TalonFX AngleMotor;
-        ctre::phoenix6::hardware::TalonFX IntakeMotor;
-        ctre::phoenix6::controls::MotionMagicVoltage m_Request;
+        ctre::phoenix6::hardware::TalonFXS IntakeMotor;
+        ctre::phoenix6::controls::MotionMagicTorqueCurrentFOC m_PoseRequest;
+        ctre::phoenix6::controls::MotionMagicVelocityTorqueCurrentFOC m_VelRequest;
 
 };

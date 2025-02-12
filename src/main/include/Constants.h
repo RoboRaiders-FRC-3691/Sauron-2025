@@ -5,12 +5,14 @@
 #pragma once
 
 #include <units/length.h>
+#include <units/angle.h>
 #include <units/angular_velocity.h>
 #include <units/angular_acceleration.h>
 #include <units/angular_jerk.h>
 
 
 #include "ctre/phoenix6/TalonFX.hpp"
+#include "ctre/phoenix6/TalonFXS.hpp"
 #include "ctre/phoenix6/configs/Configurator.hpp"
 #include "ctre/phoenix6/configs/Configs.hpp"
 
@@ -78,11 +80,13 @@ namespace CoralConstants{
             .WithMotionMagicCruiseVelocity(80_tps)
             .WithMotionMagicAcceleration(160_tr_per_s_sq)
             .WithMotionMagicJerk(1600_tr_per_s_cu)
-        //    )
-        //.WithFeedback(ctre::phoenix6::configs::FeedbackConfigs{}
+        )
+        .WithFeedback(ctre::phoenix6::configs::FeedbackConfigs{}
+            .WithSensorToMechanismRatio(3)  
         );
 
-    static constexpr ctre::phoenix6::configs::TalonFXConfiguration kCoralIntakeConfigs = ctre::phoenix6::configs::TalonFXConfiguration{}
+     
+    static constexpr ctre::phoenix6::configs::TalonFXSConfiguration kCoralIntakeConfigs = ctre::phoenix6::configs::TalonFXSConfiguration{}
         .WithSlot0(ctre::phoenix6::configs::Slot0Configs{}
             .WithKS(.25)
             .WithKV(.12)
@@ -97,7 +101,7 @@ namespace CoralConstants{
             .WithMotionMagicJerk(1600_tr_per_s_cu)
         );
 
-    static constexpr units::inch_t kLowerLimit = 0_tr;
-    static constexpr units::inch_t kUpperLimit = 1000_tr;
+    static constexpr units::turn_t kLowerLimit = 0_tr;
+    static constexpr units::turn_t kUpperLimit = 1000_tr;
 
 }
