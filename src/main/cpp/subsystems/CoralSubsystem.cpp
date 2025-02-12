@@ -25,7 +25,7 @@ units::turn_t CoralSubsystem::GetAngle(){
 }
 
 bool CoralSubsystem::ValidAngle(units::degree_t angle){
-  if(height > kUpperLimit || height < kLowerLimit){
+  if(angle > kUpperLimit || angle < kLowerLimit){
     return false;
   }
   return true;
