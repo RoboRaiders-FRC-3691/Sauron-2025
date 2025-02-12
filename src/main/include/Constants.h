@@ -58,3 +58,46 @@ namespace ElevatorConstants{
     static constexpr units::inch_t kUpperLimit = 48.875_in;
 
 }
+
+namespace CoralConstants{
+
+    static constexpr int kCoralAngleMotor = 0; //not currently set
+    static constexpr int kCoralIntakeMotor = 0; //not currently set 
+
+    //Config constants and limits are preliminary and need to be fine tuned.
+    static constexpr ctre::phoenix6::configs::TalonFXConfiguration kCoralAngleConfigs = ctre::phoenix6::configs::TalonFXConfiguration{}
+        .WithSlot0(ctre::phoenix6::configs::Slot0Configs{}
+            .WithKS(.25)
+            .WithKV(.12)
+            .WithKA(.01)
+            .WithKP(4.8)
+            .WithKI(0)
+            .WithKD(.1)
+        )
+        .WithMotionMagic(ctre::phoenix6::configs::MotionMagicConfigs{}
+            .WithMotionMagicCruiseVelocity(80_tps)
+            .WithMotionMagicAcceleration(160_tr_per_s_sq)
+            .WithMotionMagicJerk(1600_tr_per_s_cu)
+        //    )
+        //.WithFeedback(ctre::phoenix6::configs::FeedbackConfigs{}
+        );
+
+    static constexpr ctre::phoenix6::configs::TalonFXConfiguration kCoralIntakeConfigs = ctre::phoenix6::configs::TalonFXConfiguration{}
+        .WithSlot0(ctre::phoenix6::configs::Slot0Configs{}
+            .WithKS(.25)
+            .WithKV(.12)
+            .WithKA(.01)
+            .WithKP(4.8)
+            .WithKI(0)
+            .WithKD(.1)
+        )
+        .WithMotionMagic(ctre::phoenix6::configs::MotionMagicConfigs{}
+            .WithMotionMagicCruiseVelocity(80_tps)
+            .WithMotionMagicAcceleration(160_tr_per_s_sq)
+            .WithMotionMagicJerk(1600_tr_per_s_cu)
+        );
+
+    static constexpr units::inch_t kLowerLimit = 0_tr;
+    static constexpr units::inch_t kUpperLimit = 1000_tr;
+
+}
