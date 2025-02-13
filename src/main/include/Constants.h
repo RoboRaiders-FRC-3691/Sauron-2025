@@ -10,11 +10,13 @@
 #include <units/angular_acceleration.h>
 #include <units/angular_jerk.h>
 
-
 #include "ctre/phoenix6/TalonFX.hpp"
 #include "ctre/phoenix6/TalonFXS.hpp"
+#include "ctre/phoenix6/CANdi.hpp"
+
 #include "ctre/phoenix6/configs/Configurator.hpp"
 #include "ctre/phoenix6/configs/Configs.hpp"
+
 
 
 
@@ -35,6 +37,9 @@ namespace OperatorConstants {
 }  // namespace OperatorConstants
 
 namespace ElevatorConstants{
+
+    //Variable to store the CAN bus used by the coral subsystem these star for "any CANivore seen by the program"
+    static constexpr std::string_view kElevatorCANLoop = "*"; 
 
     static constexpr int kElevatorMotorRightPort = 12; //not currently set
     static constexpr int kElevatorMotorLeftPort = 15; //not currently set 
@@ -63,8 +68,13 @@ namespace ElevatorConstants{
 
 namespace CoralConstants{
 
-    static constexpr int kCoralAngleMotor = 0; //not currently set
-    static constexpr int kCoralIntakeMotor = 0; //not currently set 
+    //Variable to store the CAN bus used by the coral subsystem these star for "any CANivore seen by the program"
+    static constexpr std::string_view kCoralCANLoop = "*"; 
+
+    static constexpr int kCoralAngleMotorPort = 0; //not currently set
+    static constexpr int kCoralIntakeMotorPort = 0; //not currently set 
+
+    static constexpr int kCoralCANdiPort = 0; //not currently set 
 
     //Config constants and limits are preliminary and need to be fine tuned.
     static constexpr ctre::phoenix6::configs::TalonFXConfiguration kCoralAngleConfigs = ctre::phoenix6::configs::TalonFXConfiguration{}
@@ -82,7 +92,7 @@ namespace CoralConstants{
             .WithMotionMagicJerk(1600_tr_per_s_cu)
         )
         .WithFeedback(ctre::phoenix6::configs::FeedbackConfigs{}
-            .WithSensorToMechanismRatio(3)  
+            .WithSensorToMechanismRatio(9)  
         );
 
      
@@ -103,5 +113,12 @@ namespace CoralConstants{
 
     static constexpr units::turn_t kLowerLimit = 0_tr;
     static constexpr units::turn_t kUpperLimit = 1000_tr;
+
+
+    static constexpr ctre::phoenix6::configs::CANdiConfiguration kCoralCANdiConfig = ctre::phoenix6::configs::CANdiConfiguration{}
+        .WithDigitalInputs(ctre::phoenix6::configs::DigitalInputsConfigs{}
+            .WithS1CloseState(ctre::phoenix6::signals::S1CloseStateValue::CloseWhenNotFloating)//Temp using "CloseWhenNotFloating" not sure if this is right
+        );
+    
 
 }

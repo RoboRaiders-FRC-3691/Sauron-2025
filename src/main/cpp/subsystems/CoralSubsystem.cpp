@@ -3,7 +3,7 @@
 
 using namespace CoralConstants;
 
-CoralSubsystem::CoralSubsystem() : AngleMotor{kCoralAngleMotor}, IntakeMotor{kCoralIntakeMotor}, m_PoseRequest(0_tr), m_VelRequest(0_rpm){
+CoralSubsystem::CoralSubsystem() : AngleMotor{kCoralAngleMotorPort, kCoralCANLoop}, IntakeMotor{kCoralIntakeMotorPort, kCoralCANLoop}, IntakeSwitch{kCoralCANdiPort, kCoralCANLoop}, m_PoseRequest(0_tr), m_VelRequest(0_rpm){
   AngleMotor.GetConfigurator().Apply(kCoralAngleConfigs);
   IntakeMotor.GetConfigurator().Apply(kCoralIntakeConfigs);
 }
@@ -28,8 +28,8 @@ frc2::CommandPtr CoralSubsystem::SetIntake(units::angular_velocity::revolutions_
 }
 
 //Comnmand that runs the intake at intakeVelocity for "timeout" seconds when called
-frc2::CommandPtr CoralSubsystem::RunIntake(units::angular_velocity::revolutions_per_minute_t intakeVelocity, units::time::second_t timeout){
-  return RunOnce([this, intakeVelocity]{
+frc2::CommandPtr CoralSubsystem::RunIntakeFor(units::angular_velocity::revolutions_per_minute_t intakeVelocity, units::time::second_t timeout){
+  return Run([this, intakeVelocity]{
             IntakeMotor.SetControl(m_VelRequest.WithVelocity(intakeVelocity));
 			})
         .FinallyDo([this]{
@@ -37,6 +37,15 @@ frc2::CommandPtr CoralSubsystem::RunIntake(units::angular_velocity::revolutions_
 			})
         .WithTimeout(timeout);
 }
+/* WIP fix once CANdi stuff figured out
+frc2::CommandPtr CoralSubsystem::IntakeWithSensor(units::angular_velocity::revolutions_per_minute_t intakeVelocity){
+  return Run([this, intakeVelocity]{
+            IntakeMotor.SetControl(m_VelRequest.WithVelocity(intakeVelocity));
+			})
+        .FinallyDo([this]{
+			IntakeMotor.StopMotor();
+			});
+}*/
 
 units::turn_t CoralSubsystem::GetAngle(){
   return AngleMotor.GetPosition().GetValue();
