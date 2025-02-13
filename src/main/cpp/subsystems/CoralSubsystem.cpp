@@ -3,7 +3,7 @@
 
 using namespace CoralConstants;
 
-CoralSubsystem::CoralSubsystem() : AngleMotor{kCoralAngleMotorPort, kCoralCANLoop}, IntakeMotor{kCoralIntakeMotorPort, kCoralCANLoop}, IntakeSwitch{kCoralCANdiPort, kCoralCANLoop}, m_PoseRequest(0_tr), m_VelRequest(0_rpm){
+CoralSubsystem::CoralSubsystem() : AngleMotor{kCoralAngleMotorPort, kCoralCANLoop}, IntakeMotor{kCoralIntakeMotorPort, kCoralCANLoop}, CoralCANdi{kCoralCANdiPort, kCoralCANLoop}, m_PoseRequest(0_tr), m_VelRequest(0_rpm){
   AngleMotor.GetConfigurator().Apply(kCoralAngleConfigs);
   IntakeMotor.GetConfigurator().Apply(kCoralIntakeConfigs);
 }
@@ -37,15 +37,21 @@ frc2::CommandPtr CoralSubsystem::RunIntakeFor(units::angular_velocity::revolutio
 			})
         .WithTimeout(timeout);
 }
-/* WIP fix once CANdi stuff figured out
+// WIP fix once CANdi stuff figured out
+/*
 frc2::CommandPtr CoralSubsystem::IntakeWithSensor(units::angular_velocity::revolutions_per_minute_t intakeVelocity){
   return Run([this, intakeVelocity]{
             IntakeMotor.SetControl(m_VelRequest.WithVelocity(intakeVelocity));
 			})
         .FinallyDo([this]{
 			IntakeMotor.StopMotor();
-			});
-}*/
+			})
+        .Until(
+          	//Condition
+			CoralCANdi.GetS1Closed().GetValue()
+      		);
+}
+*/
 
 units::turn_t CoralSubsystem::GetAngle(){
   return AngleMotor.GetPosition().GetValue();

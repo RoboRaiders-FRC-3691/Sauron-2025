@@ -33,7 +33,7 @@ class CoralSubsystem : public frc2::SubsystemBase {
 
         frc2::CommandPtr RunIntakeFor(units::angular_velocity::revolutions_per_minute_t intakeVelocity, units::time::second_t timeout);
 
-        //frc2::CommandPtr IntakeWithSensor(units::angular_velocity::revolutions_per_minute_t intakeVelocity); WIP see .cpp
+        //frc2::CommandPtr IntakeWithSensor(units::angular_velocity::revolutions_per_minute_t intakeVelocity); //WIP see .cpp
 
         //Gets coral mechanism angle
         units::turn_t GetAngle();
@@ -47,7 +47,7 @@ class CoralSubsystem : public frc2::SubsystemBase {
         ctre::phoenix6::hardware::TalonFXS IntakeMotor;
 
         //Declare coral CANdi
-        ctre::phoenix6::hardware::CANdi IntakeSwitch;
+        ctre::phoenix6::hardware::CANdi CoralCANdi;
 
         ctre::phoenix6::controls::MotionMagicTorqueCurrentFOC m_PoseRequest;
         ctre::phoenix6::controls::MotionMagicVelocityTorqueCurrentFOC m_VelRequest;
