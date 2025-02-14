@@ -117,7 +117,8 @@ namespace CoralConstants{
 
     static constexpr ctre::phoenix6::configs::CANdiConfiguration kCoralCANdiConfig = ctre::phoenix6::configs::CANdiConfiguration{}
         .WithDigitalInputs(ctre::phoenix6::configs::DigitalInputsConfigs{}
-            .WithS1CloseState(ctre::phoenix6::signals::S1CloseStateValue::CloseWhenNotFloating)//Temp using "CloseWhenNotFloating" not sure if this is right
+            .WithS1FloatState(ctre::phoenix6::signals::S1FloatStateValue::PullHigh)
+            .WithS1CloseState(ctre::phoenix6::signals::S1CloseStateValue::CloseWhenLow)
         );
     
 
