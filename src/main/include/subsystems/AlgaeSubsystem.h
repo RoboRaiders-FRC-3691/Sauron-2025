@@ -19,14 +19,14 @@
 
 #include "Constants.h"
 
-class CoralSubsystem : public frc2::SubsystemBase {
+class AlgaeSubsystem : public frc2::SubsystemBase {
     public:
-        //CoralSubsystem constructor
-        CoralSubsystem();
+        //AlgaeSubsystem constructor
+        AlgaeSubsystem();
 
         void Periodic();
 
-        //Sets the coral mechanism Angle
+        //Sets the algae mechanism Angle
         frc2::CommandPtr SetAngle(units::degree_t angle);
 
         frc2::CommandPtr SetIntake(units::angular_velocity::revolutions_per_minute_t intakeVelocity);
@@ -37,19 +37,16 @@ class CoralSubsystem : public frc2::SubsystemBase {
 
         frc2::CommandPtr IntakeWithSensor(units::angular_velocity::revolutions_per_minute_t intakeVelocity); //WIP see .cpp
 
-        //Gets coral mechanism angle
+        //Gets algae mechanism angle
         units::turn_t GetAngle();
 
-        //Checks if a given angle is inside of the coral mechanism angle limits
+        //Checks if a given angle is inside of the algae mechanism angle limits
         bool ValidAngle(units::degree_t angle);
 
     private:
-        //Declare the coral motors
+        //Declare the algae motors
         ctre::phoenix6::hardware::TalonFX AngleMotor;
         ctre::phoenix6::hardware::TalonFXS IntakeMotor;
-
-        //Declare coral CANdi
-        ctre::phoenix6::hardware::CANdi CoralCANdi;
 
         ctre::phoenix6::controls::MotionMagicTorqueCurrentFOC m_PoseRequest;
         ctre::phoenix6::controls::MotionMagicVelocityTorqueCurrentFOC m_VelRequest;
