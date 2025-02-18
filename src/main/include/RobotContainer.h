@@ -34,7 +34,7 @@ private:
      *       define a destructor to un-register the telemetry from the drivetrain */
     Telemetry logger{MaxSpeed};
 
-    frc2::CommandXboxController m_XboxController{OperatorConstants::kDriverControllerPort};
+    frc2::CommandXboxController m_XboxController{OperatorConstants::kXboxControllerPort};
 
 public:
     subsystems::CommandSwerveDrivetrain drivetrain{TunerConstants::CreateDrivetrain()};

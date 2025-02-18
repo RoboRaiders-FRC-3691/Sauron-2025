@@ -34,7 +34,8 @@
 
 namespace OperatorConstants {
 
-    inline constexpr int kDriverControllerPort = 0;
+    inline constexpr int kXboxControllerPort = 0;
+    inline constexpr int kMacroPadPort = 1;
 
 }  // namespace OperatorConstants
 
