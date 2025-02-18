@@ -20,7 +20,7 @@
 #include <Constants.h>
 
 struct VisionPoseResult {
-    photon::EstimatedRobotPose estimatedPose;
+    photon::EstimatedRobotPose visionEstimate;
     wpi::array<double, 3U> standardDeviations;
 };
 

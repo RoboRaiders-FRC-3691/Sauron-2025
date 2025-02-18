@@ -17,6 +17,8 @@
 
 #include "generated/TunerConstants.h"
 
+#include "Utils/Vision/VisionCluster.h"
+
 using namespace ctre::phoenix6;
 
 namespace subsystems {
@@ -289,11 +291,17 @@ public:
 
     void ConfigurePathPlanner();
 
+    void AddClusterVisionMeasurments();
+
 private:
     void StartSimThread();
 
     swerve::requests::ApplyRobotSpeeds m_AutoRequest = swerve::requests::ApplyRobotSpeeds{}
         .WithDriveRequestType(swerve::impl::DriveRequestType::OpenLoopVoltage);
+
+    VisionCluster m_visionCluster;
+    std::vector<VisionPoseResult> m_visionResults;
+    
 };
 
 }

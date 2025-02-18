@@ -59,7 +59,7 @@ std::optional<VisionPoseResult> VisionCluster::FilterVisionEstimate(std::optiona
             stdDevs = kMultiTagStdDevs;
 
             // Scale standard deviations
-            double scaleFactor = ((avgDistance.value() * avgDistance.value()) * (kStdDevsScaleFactorLimit/(kMaxMultiTagDistance.value())));
+            double scaleFactor = (pow(avgDistance.value(), 2) * (kStdDevsScaleFactorLimit/pow(kMaxSingleTagDistance.value(), 2)));
             for(double& stdDev : stdDevs){
                 stdDev *= scaleFactor;
             }
@@ -68,7 +68,7 @@ std::optional<VisionPoseResult> VisionCluster::FilterVisionEstimate(std::optiona
             stdDevs = kSingleTagStdDevs;
 
             // Scale standard deviations
-            double scaleFactor = ((avgDistance.value() * avgDistance.value()) * (kStdDevsScaleFactorLimit/(kMaxSingleTagDistance.value())));
+            double scaleFactor = (pow(avgDistance.value(), 2) * (kStdDevsScaleFactorLimit/pow(kMaxSingleTagDistance.value(), 2)));
             for(double& stdDev : stdDevs){
                 stdDev *= scaleFactor;
             }

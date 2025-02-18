@@ -23,6 +23,8 @@ void CommandSwerveDrivetrain::Periodic()
             m_hasAppliedOperatorPerspective = true;
         }
     }
+
+    AddClusterVisionMeasurments();
 }
 
 void CommandSwerveDrivetrain::StartSimThread()
@@ -69,5 +71,15 @@ void CommandSwerveDrivetrain::ConfigurePathPlanner(){
         },
         this // Reference to this subsystem to set requirements
     );
+}
 
+
+
+void CommandSwerveDrivetrain::AddClusterVisionMeasurments(){
+    m_visionResults = m_visionCluster.GetVisionEstimates();
+    if(m_visionResults.size() > 0){
+        for (auto result : m_visionResults){
+            AddVisionMeasurement(result.visionEstimate.estimatedPose.ToPose2d(), result.visionEstimate.timestamp, result.standardDeviations);
+        }
+    }
 }
