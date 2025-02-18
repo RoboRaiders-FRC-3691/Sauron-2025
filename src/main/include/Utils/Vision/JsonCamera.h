@@ -18,6 +18,6 @@
 #include "Utils/Vision/PhotonCamEstimator.h"
 
 namespace JsonCamera{
-        PhotonCamEstimator LoadCameraFromFile(std::filesystem::path filepath, frc::AprilTagFieldLayout aprilTags);
-        std::vector<PhotonCamEstimator> LoadCamerasFromFolder(std::filesystem::path directoryPath, frc::AprilTagFieldLayout aprilTags);
+    PhotonCamEstimator LoadCameraFromFile(std::filesystem::path filepath, frc::AprilTagFieldLayout aprilTags);
+    std::vector<PhotonCamEstimator> LoadCamerasFromFolder(std::filesystem::path directoryPath, frc::AprilTagFieldLayout aprilTags);
 };       

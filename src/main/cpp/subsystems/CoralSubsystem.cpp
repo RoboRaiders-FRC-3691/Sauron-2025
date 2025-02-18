@@ -9,13 +9,13 @@ CoralSubsystem::CoralSubsystem() : AngleMotor{kCoralAngleMotorPort, kCoralCANLoo
 }
 
 void CoralSubsystem::Periodic(){
-  
+
 }
 
 frc2::CommandPtr CoralSubsystem::SetAngle(units::degree_t angle){
     return RunOnce([this, angle] {
         if(ValidAngle(angle)){
-      AngleMotor.SetControl(m_PoseRequest.WithPosition(angle));
+    		AngleMotor.SetControl(m_PoseRequest.WithPosition(angle));
     }
   });
 }
