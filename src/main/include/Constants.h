@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <wpi/array.h>
+
 #include <units/length.h>
 #include <units/angle.h>
 #include <units/angular_velocity.h>
