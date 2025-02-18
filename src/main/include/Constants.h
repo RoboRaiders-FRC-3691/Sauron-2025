@@ -123,3 +123,23 @@ namespace CoralConstants{
     
 
 }
+
+namespace VisionConstants {
+
+    //Max pose ambiguity (for single tag)
+    constexpr double kMaxSingleTagAmbiguity = 0.2;
+    constexpr double kMaxMultiTagAmbiguity = 0.3;
+
+    //Max distance (for single tag)
+    constexpr units::inch_t kMaxSingleTagDistance = 150_in;
+    constexpr units::inch_t kMaxMultiTagDistance = 200_in;
+  
+    //Default standard deviations 
+    constexpr wpi::array<double, 3U> kSingleTagStdDevs {3.75, 3.75, 7.5};
+    constexpr wpi::array<double, 3U> kMultiTagStdDevs {0.75, 0.75, 1.5};
+
+    //Standard deviations scale factor limit (scaled as: distance^2 * kStdDevsScaleFactorLimit/(MaxTagDistance^2))
+    constexpr double kStdDevsScaleFactorLimit = 1.0 / 30.0;
+
+    
+}
