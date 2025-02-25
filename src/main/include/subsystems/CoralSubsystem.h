@@ -51,7 +51,7 @@ class CoralSubsystem : public frc2::SubsystemBase {
         //Declare coral CANdi
         ctre::phoenix6::hardware::CANdi CoralCANdi;
 
-        ctre::phoenix6::controls::MotionMagicTorqueCurrentFOC m_PoseRequest;
-        ctre::phoenix6::controls::MotionMagicVelocityTorqueCurrentFOC m_VelRequest;
+        ctre::phoenix6::controls::MotionMagicVoltage m_PoseRequest;
+        ctre::phoenix6::controls::MotionMagicVelocityVoltage m_VelRequest;
 
 };

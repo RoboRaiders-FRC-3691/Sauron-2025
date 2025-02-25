@@ -3,7 +3,7 @@
 
 using namespace ElevatorConstants;
 
-ElevatorSubsystem::ElevatorSubsystem() : RightMotor{kElevatorMotorRightPort, kElevatorCANLoop}, LeftMotor{kElevatorMotorLeftPort, kElevatorCANLoop}, m_Request(0_tr){
+ElevatorSubsystem::ElevatorSubsystem() : RightMotor{kElevatorMotorRightPort, kElevatorCANLoop}, LeftMotor{kElevatorMotorLeftPort, kElevatorCANLoop}, m_PoseRequest(0_tr){
     RightMotor.GetConfigurator().Apply(kElevatorMotorConfigs);
     LeftMotor.SetControl(ctre::phoenix6::controls::Follower{kElevatorMotorRightPort, true});
 }
@@ -23,7 +23,7 @@ units::turn_t ElevatorSubsystem::HeightToRotations(units::inch_t height){
 frc2::CommandPtr ElevatorSubsystem::SetHeight(units::inch_t height){
     return RunOnce([this, height] {
         if(ValidHeight(height)){
-            RightMotor.SetControl(m_Request.WithPosition(HeightToRotations(height)));
+            RightMotor.SetControl(m_PoseRequest.WithPosition(HeightToRotations(height)));
             }
     });
 }

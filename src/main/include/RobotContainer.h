@@ -17,6 +17,7 @@
 #include "Utils/PathPlannerUtils.h"
 #include "Constants.h"
 #include "subsystems/ElevatorSubsystem.h"
+#include "subsystems/CoralSubsystem.h"
 
 class RobotContainer {
 private:
@@ -47,6 +48,8 @@ private:
     void ConfigureBindings();
 
     ElevatorSubsystem m_elevator;
+    CoralSubsystem m_Coral;
+
 
     PathPlannerUtils examplePPUtil;
     std::vector<pathplanner::PathPlannerAuto> PPautoVect;
