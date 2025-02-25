@@ -41,6 +41,6 @@ class ElevatorSubsystem : public frc2::SubsystemBase {
         //Declare the elevator motors
         ctre::phoenix6::hardware::TalonFX RightMotor;
         ctre::phoenix6::hardware::TalonFX LeftMotor;
-        ctre::phoenix6::controls::MotionMagicVoltage m_Request;
+        ctre::phoenix6::controls::MotionMagicVoltage m_PoseRequest;
 
 };

@@ -48,7 +48,7 @@ class AlgaeSubsystem : public frc2::SubsystemBase {
         ctre::phoenix6::hardware::TalonFX AngleMotor;
         ctre::phoenix6::hardware::TalonFXS IntakeMotor;
 
-        ctre::phoenix6::controls::MotionMagicTorqueCurrentFOC m_PoseRequest;
-        ctre::phoenix6::controls::MotionMagicVelocityTorqueCurrentFOC m_VelRequest;
+        ctre::phoenix6::controls::MotionMagicVoltage m_PoseRequest;
+        ctre::phoenix6::controls::MotionMagicVelocityVoltage m_VelRequest;
 
 };

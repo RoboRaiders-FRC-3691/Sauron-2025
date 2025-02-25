@@ -85,7 +85,7 @@ namespace ElevatorConstants{
 
     static constexpr double kInPerRot = 0.4406;
 
-    static constexpr units::inch_t kLowerLimit = 0_in;
+    static constexpr units::inch_t kLowerLimit = .25_in;
     static constexpr units::inch_t kUpperLimit = 48.875_in;
 
 }
@@ -93,12 +93,12 @@ namespace ElevatorConstants{
 namespace CoralConstants{
 
     //Variable to store the CAN bus used by the coral subsystem these star for "any CANivore seen by the program"
-    static constexpr std::string_view kCoralCANLoop = "*"; 
+    static constexpr std::string_view kCoralCANLoop = ""; 
 
-    static constexpr int kCoralAngleMotorPort = 0; //not currently set
-    static constexpr int kCoralIntakeMotorPort = 0; //not currently set 
+    static constexpr int kCoralAngleMotorPort = 1; //not currently set
+    static constexpr int kCoralIntakeMotorPort = 20; //not currently set 
 
-    static constexpr int kCoralCANdiPort = 0; //not currently set 
+    static constexpr int kCoralCANdiPort = 23; //not currently set 
 
     //Config constants and limits are preliminary and need to be fine tuned.
     static constexpr ctre::phoenix6::configs::TalonFXConfiguration kCoralAngleConfigs = ctre::phoenix6::configs::TalonFXConfiguration{}
@@ -133,6 +133,9 @@ namespace CoralConstants{
             .WithMotionMagicCruiseVelocity(80_tps)
             .WithMotionMagicAcceleration(160_tr_per_s_sq)
             .WithMotionMagicJerk(1600_tr_per_s_cu)
+        )
+        .WithCommutation(ctre::phoenix6::configs::CommutationConfigs{}
+            .WithMotorArrangement(ctre::phoenix6::signals::MotorArrangementValue::Minion_JST)
         );
 
     static constexpr units::turn_t kLowerLimit = 0_tr;
@@ -146,8 +149,8 @@ namespace CoralConstants{
         );
     
     //Arrays for the coral placement heights, and the coral placement angles. Index = Level - 1. (e.g. L1 = [0])
-    static constexpr wpi::array<units::length::inch_t, 4U> kCoralPlacementHeights = {0_in, 1_in, 2_in, 3_in};
-    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementAngles = {0_tr, 1_tr, 2_tr, 3_tr};
+    static constexpr wpi::array<units::length::inch_t, 4U> kCoralPlacementHeights = {0_in, 1_in, 2_in, 48.875_in};
+    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementAngles = {0.056_tr, 1_tr, 2_tr, 3_tr};
 
     static constexpr units::angular_velocity::revolutions_per_minute_t kCoralPlacementVelocity = -1000_rpm;
     static constexpr units::time::second_t kCoralPlacementTime = 3_s;
@@ -194,6 +197,9 @@ namespace AlgaeConstants{
             .WithMotionMagicCruiseVelocity(80_tps)
             .WithMotionMagicAcceleration(160_tr_per_s_sq)
             .WithMotionMagicJerk(1600_tr_per_s_cu)
+        )
+        .WithCommutation(ctre::phoenix6::configs::CommutationConfigs{}
+            .WithMotorArrangement(ctre::phoenix6::signals::MotorArrangementValue::Minion_JST)
         );
 
     static constexpr units::turn_t kLowerLimit = 0_tr;

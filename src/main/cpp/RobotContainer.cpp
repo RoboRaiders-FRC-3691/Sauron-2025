@@ -53,10 +53,14 @@ void RobotContainer::ConfigureBindings()
 
     drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
 
-    m_XboxController.A().WhileTrue(m_elevator.SetHeight(0_in));
+    m_XboxController.A().WhileTrue(m_elevator.SetHeight(.25_in));
     m_XboxController.B().WhileTrue(m_elevator.SetHeight(15_in));
     m_XboxController.X().WhileTrue(m_elevator.SetHeight(30_in));
     m_XboxController.Y().WhileTrue(m_elevator.SetHeight(48.875_in));
+
+    m_XboxController.LeftBumper().WhileTrue(m_Coral.RunIntakeFor(-2000_rpm, 2_s));
+    m_XboxController.RightBumper().WhileTrue(m_Coral.RunIntakeFor(1000_rpm, 2_s));
+
 
 }
 
