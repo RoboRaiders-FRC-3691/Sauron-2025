@@ -155,9 +155,9 @@ namespace CoralConstants{
         );
     
     //Arrays for the coral placement heights, and the coral placement angles. Index = Level - 1. (e.g. L1 = [0])
-    static constexpr wpi::array<units::length::inch_t, 4U> kCoralPlacementHeights = {5_in, 17_in, 28_in, 48.875_in};
-    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementAngles = {0.09_tr, 0.09_tr, .12_tr, .15_tr};
-
+    static constexpr wpi::array<units::length::inch_t, 4U> kCoralPlacementHeights = {2_in, 17_in, 28_in, 48.875_in};
+    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementAngles = {0.06_tr, 0.09_tr, .12_tr, .15_tr};
+    
     static constexpr units::angular_velocity::revolutions_per_minute_t kCoralPlacementVelocity = -1000_rpm;
     static constexpr units::time::second_t kCoralPlacementTime = 3_s;
 }
@@ -215,7 +215,7 @@ namespace AlgaeConstants{
     static constexpr units::turn_t kUpperLimit = 1000_tr;
     
     
-    //Arrays for the coral placement heights, and the coral placement angles. Index = Level - 2. (e.g. L2 = [0]). Note: Algae is only removed from L2 and L3.
+    //Arrays for the algae placement heights, and the algae placement angles. Index = Level - 2. (e.g. L2 = [0]). Note: Algae is only removed from L2 and L3.
     static constexpr wpi::array<units::length::inch_t, 2U> kAlgaePlacementHeights = {1_in, 2_in};
     static constexpr wpi::array<units::angle::turn_t, 2U> kAlgaePlacementAngles = {1_tr, 2_tr};
 

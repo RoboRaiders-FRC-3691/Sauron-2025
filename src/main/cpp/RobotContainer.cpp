@@ -82,6 +82,7 @@ void RobotContainer::ConfigureBindings()
     m_XboxController.LeftBumper().WhileTrue(m_Coral.RunIntake(3000_rpm));
 
     m_XboxController.B().OnTrue(m_Coral.SetAngle(.35_tr));
+    m_XboxController.A().WhileTrue(m_elevator.SetHeight(5_in));
 
 }
 
