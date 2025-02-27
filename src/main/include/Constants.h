@@ -85,7 +85,7 @@ namespace ElevatorConstants{
 
     static constexpr double kInPerRot = 0.4406;
 
-    static constexpr units::inch_t kLowerLimit = .25_in;
+    static constexpr units::inch_t kLowerLimit = .75_in;
     static constexpr units::inch_t kUpperLimit = 48.875_in;
 
 }
@@ -116,18 +116,18 @@ namespace CoralConstants{
             .WithMotionMagicJerk(1600_tr_per_s_cu)
         )
         .WithFeedback(ctre::phoenix6::configs::FeedbackConfigs{}
-            .WithSensorToMechanismRatio(9)  
+            .WithSensorToMechanismRatio(9) 
         );
 
      
     static constexpr ctre::phoenix6::configs::TalonFXSConfiguration kCoralIntakeConfigs = ctre::phoenix6::configs::TalonFXSConfiguration{}
         .WithSlot0(ctre::phoenix6::configs::Slot0Configs{}
-            .WithKS(.25)
-            .WithKV(.12)
+            .WithKS(.45)
+            .WithKV(.08)
             .WithKA(.01)
-            .WithKP(4.8)
+            .WithKP(.25)
             .WithKI(0)
-            .WithKD(.1)
+            .WithKD(.015)
         )
         .WithMotionMagic(ctre::phoenix6::configs::MotionMagicConfigs{}
             .WithMotionMagicCruiseVelocity(80_tps)
@@ -136,6 +136,12 @@ namespace CoralConstants{
         )
         .WithCommutation(ctre::phoenix6::configs::CommutationConfigs{}
             .WithMotorArrangement(ctre::phoenix6::signals::MotorArrangementValue::Minion_JST)
+        )
+        .WithMotorOutput(ctre::phoenix6::configs::MotorOutputConfigs{}
+            .WithInverted(ctre::phoenix6::signals::InvertedValue::CounterClockwise_Positive)
+        )
+        .WithExternalFeedback(ctre::phoenix6::configs::ExternalFeedbackConfigs{}
+            .WithSensorToMechanismRatio(9)  
         );
 
     static constexpr units::turn_t kLowerLimit = 0_tr;
@@ -149,8 +155,8 @@ namespace CoralConstants{
         );
     
     //Arrays for the coral placement heights, and the coral placement angles. Index = Level - 1. (e.g. L1 = [0])
-    static constexpr wpi::array<units::length::inch_t, 4U> kCoralPlacementHeights = {0_in, 1_in, 2_in, 48.875_in};
-    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementAngles = {0.056_tr, 1_tr, 2_tr, 3_tr};
+    static constexpr wpi::array<units::length::inch_t, 4U> kCoralPlacementHeights = {5_in, 17_in, 28_in, 48.875_in};
+    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementAngles = {0.09_tr, 0.09_tr, .12_tr, .15_tr};
 
     static constexpr units::angular_velocity::revolutions_per_minute_t kCoralPlacementVelocity = -1000_rpm;
     static constexpr units::time::second_t kCoralPlacementTime = 3_s;
@@ -159,10 +165,10 @@ namespace CoralConstants{
 namespace AlgaeConstants{
 
     //Variable to store the CAN bus used by the coral subsystem these star for "any CANivore seen by the program"
-    static constexpr std::string_view kAlgaeCANLoop = "*"; 
+    static constexpr std::string_view kAlgaeCANLoop = ""; 
 
-    static constexpr int kAlgaeAngleMotorPort = 0; //not currently set
-    static constexpr int kAlgaeIntakeMotorPort = 0; //not currently set 
+    static constexpr int kAlgaeAngleMotorPort = 2; //not currently set
+    static constexpr int kAlgaeIntakeMotorPort = 21; //not currently set 
 
     //Config constants and limits are preliminary and need to be fine tuned.
     static constexpr ctre::phoenix6::configs::TalonFXConfiguration kAlgaeAngleConfigs = ctre::phoenix6::configs::TalonFXConfiguration{}
@@ -175,23 +181,23 @@ namespace AlgaeConstants{
             .WithKD(.1)
         )
         .WithMotionMagic(ctre::phoenix6::configs::MotionMagicConfigs{}
-            .WithMotionMagicCruiseVelocity(80_tps)
-            .WithMotionMagicAcceleration(160_tr_per_s_sq)
-            .WithMotionMagicJerk(1600_tr_per_s_cu)
+            .WithMotionMagicCruiseVelocity(50_tps)
+            .WithMotionMagicAcceleration(100_tr_per_s_sq)
+            .WithMotionMagicJerk(200_tr_per_s_cu)
         )
         .WithFeedback(ctre::phoenix6::configs::FeedbackConfigs{}
-            .WithSensorToMechanismRatio(9)  
+            .WithSensorToMechanismRatio(36)
         );
 
      
     static constexpr ctre::phoenix6::configs::TalonFXSConfiguration kAlgaeIntakeConfigs = ctre::phoenix6::configs::TalonFXSConfiguration{}
         .WithSlot0(ctre::phoenix6::configs::Slot0Configs{}
-            .WithKS(.25)
-            .WithKV(.12)
+            .WithKS(.45)
+            .WithKV(.08)
             .WithKA(.01)
-            .WithKP(4.8)
+            .WithKP(.25)
             .WithKI(0)
-            .WithKD(.1)
+            .WithKD(.015)
         )
         .WithMotionMagic(ctre::phoenix6::configs::MotionMagicConfigs{}
             .WithMotionMagicCruiseVelocity(80_tps)
@@ -200,6 +206,9 @@ namespace AlgaeConstants{
         )
         .WithCommutation(ctre::phoenix6::configs::CommutationConfigs{}
             .WithMotorArrangement(ctre::phoenix6::signals::MotorArrangementValue::Minion_JST)
+        )
+        .WithExternalFeedback(ctre::phoenix6::configs::ExternalFeedbackConfigs{}
+            .WithSensorToMechanismRatio(16)  
         );
 
     static constexpr units::turn_t kLowerLimit = 0_tr;
