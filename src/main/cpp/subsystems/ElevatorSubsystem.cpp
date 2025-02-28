@@ -6,6 +6,7 @@ using namespace ElevatorConstants;
 ElevatorSubsystem::ElevatorSubsystem() : RightMotor{kElevatorMotorRightPort, kElevatorCANLoop}, LeftMotor{kElevatorMotorLeftPort, kElevatorCANLoop}, m_PoseRequest(0_tr){
     RightMotor.GetConfigurator().Apply(kElevatorMotorConfigs);
     LeftMotor.SetControl(ctre::phoenix6::controls::Follower{kElevatorMotorRightPort, true});
+    
 }
 
 void ElevatorSubsystem::Periodic(){

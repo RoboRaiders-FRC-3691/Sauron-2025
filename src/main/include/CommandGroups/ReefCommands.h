@@ -8,6 +8,6 @@
 #include "subsystems/ElevatorSubsystem.h"
 
 namespace ReefCommands{
-    frc2::CommandPtr PlaceCoralAtLevel(CoralSubsystem &_CoralSubsystem, ElevatorSubsystem &_ElevatoSubsystem, int level);
-    frc2::CommandPtr RemoveAlgaeAtLevel(AlgaeSubsystem &_AlgaeSubsystem, ElevatorSubsystem &_ElevatoSubsystem, int level);
+    frc2::CommandPtr PlaceCoralAtLevel(CoralSubsystem &_CoralSubsystem, AlgaeSubsystem &_AlgaeSubsystem, ElevatorSubsystem &_ElevatorSubsystem, int level);
+    frc2::CommandPtr RemoveAlgaeAtLevel(CoralSubsystem &_CoralSubsystem, AlgaeSubsystem &_AlgaeSubsystem, ElevatorSubsystem &_ElevatorSubsystem, int level);
 }

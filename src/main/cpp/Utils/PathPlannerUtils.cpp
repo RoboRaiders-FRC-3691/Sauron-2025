@@ -1,9 +1,5 @@
  #include "Utils/PathPlannerUtils.h"
-
  PathPlannerUtils::PathPlannerUtils(){
-
-    
-  
  }
  
  std::vector<std::string> PathPlannerUtils::AutosList(){
@@ -32,8 +28,8 @@
         }
     }
     else {
-        // Handle the case where the directory doesn't exist 
-        fileVect.push_back("Error directory path not found.");
+        // Handle the case where the directory doesn't exist //Temp off for testing
+        //fileVect.push_back("Error directory path not found.");
     }
 
     return fileVect;

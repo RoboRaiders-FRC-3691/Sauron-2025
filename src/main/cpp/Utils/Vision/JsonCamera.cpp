@@ -28,9 +28,9 @@ std::unordered_map <std::string, photon::PoseStrategy> strategyMap = {{"AVERAGE_
     frc::Transform3d cameraOffset = frc::Transform3d(units::length::inch_t(cameraPositionJson.at("X")),
                                                      units::length::inch_t(cameraPositionJson.at("Y")),
                                                      units::length::inch_t(cameraPositionJson.at("Z")),
-                                    frc::Rotation3d(units::angle::degree_t(cameraPositionJson.at("Yaw")),
+                                    frc::Rotation3d(units::angle::degree_t(cameraPositionJson.at("Roll")),
                                                     units::angle::degree_t(cameraPositionJson.at("Pitch")),
-                                                    units::angle::degree_t(cameraPositionJson.at("Roll"))));                 
+                                                    units::angle::degree_t(cameraPositionJson.at("Yaw"))));                 
 
     return PhotonCamEstimator(jsonFile.at("CameraName"), aprilTags, strategyMap[jsonFile.at("PoseStrategy")], cameraOffset);
     
