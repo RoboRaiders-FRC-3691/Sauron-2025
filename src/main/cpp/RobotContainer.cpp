@@ -61,8 +61,7 @@ void RobotContainer::ConfigureBindings()
     m_XboxController.RightBumper().WhileTrue(m_Coral.SetAngle(.15_tr));
     m_XboxController.LeftBumper().WhileTrue(m_Coral.RunIntakeFor(-1000_rpm, 2_s));
     */
-
-    //Algae controls
+    /*//Algae controls
     m_MacroPad.GetKey(3,1).OnTrue(m_Algae.SetAngle(0_tr));
     m_MacroPad.GetKey(4,1).OnTrue(m_Algae.SetAngle(-.07_tr));
 
@@ -71,10 +70,10 @@ void RobotContainer::ConfigureBindings()
 
 
     //elevator controls
-    m_MacroPad.GetKey(4,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_elevator, 0));
-    m_MacroPad.GetKey(3,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_elevator, 1));
-    m_MacroPad.GetKey(2,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_elevator, 2));
-    m_MacroPad.GetKey(1,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_elevator, 3));
+    m_MacroPad.GetKey(4,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 0));
+    m_MacroPad.GetKey(3,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 1));
+    m_MacroPad.GetKey(2,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 2));
+    m_MacroPad.GetKey(1,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 3));
 
 
     //Coral controls
@@ -83,6 +82,55 @@ void RobotContainer::ConfigureBindings()
 
     m_XboxController.B().OnTrue(m_Coral.SetAngle(.35_tr));
     m_XboxController.A().WhileTrue(m_elevator.SetHeight(5_in));
+
+    //Climber controls
+    m_MacroPad.GetKey(1, 1).OnTrue(m_Climber.SetAngle(0_tr));
+    m_MacroPad.GetKey(2, 1).OnTrue(m_Climber.SetAngle(200_tr));
+
+*/
+    //Algae controls
+    //m_MacroPad.GetKey(3,1).OnTrue(m_Algae.SetAngle(0_tr));
+
+    //m_MacroPad.GetKey(4,1).OnTrue(m_Algae.SetAngle(-.25_tr));
+    
+
+    
+
+    m_XboxController.RightTrigger().WhileTrue(m_Algae.RunIntake(2000_rpm));
+    m_XboxController.LeftTrigger().WhileTrue(m_Algae.RunIntake(-2000_rpm));
+
+
+    m_MacroPad.GetKey(4,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 0));
+    m_MacroPad.GetKey(3,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 1));
+    m_MacroPad.GetKey(2,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 2));
+    m_MacroPad.GetKey(1,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 3));
+
+    m_MacroPad.GetKey(1,2).OnTrue(ReefCommands::RemoveAlgaeAtLevel(m_Coral, m_Algae, m_elevator, 1));
+    m_MacroPad.GetKey(2,2).OnTrue(ReefCommands::RemoveAlgaeAtLevel(m_Coral, m_Algae, m_elevator, 0));
+
+
+
+
+
+    //Coral controls
+    m_XboxController.RightBumper().WhileTrue(m_Coral.RunIntake(-3000_rpm));
+    m_XboxController.LeftBumper().WhileTrue(m_Coral.RunIntake(3000_rpm));
+
+    m_XboxController.B().OnTrue(m_Coral.SetAngle(.32_tr));
+    m_XboxController.A().WhileTrue(m_elevator.SetHeight(5_in));
+
+    //Temp Test Coral Intake Angle
+    m_XboxController.X().OnTrue(m_Coral.SetAngle(.30_tr));
+
+    //Climber controls
+    m_MacroPad.GetKey(1, 1).OnTrue(m_Climber.SetAngle(-700_tr));
+    m_MacroPad.GetKey(2, 1).OnTrue(m_Climber.SetAngle(-340_tr));
+    m_MacroPad.GetKey(3, 1).OnTrue(m_Climber.SetAngle(-10_tr));
+
+
+    
+    //m_MacroPad.GetKey(1, 2).OnTrue(m_elevator.SetHeight(38_in));
+    //m_MacroPad.GetKey(1, 3).OnTrue(m_elevator.SetHeight(24_in));
 
 }
 

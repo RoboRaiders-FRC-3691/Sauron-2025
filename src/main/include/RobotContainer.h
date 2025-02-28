@@ -19,6 +19,7 @@
 #include "Constants.h"
 #include "subsystems/ElevatorSubsystem.h"
 #include "subsystems/CoralSubsystem.h"
+#include "subsystems/ClimberSubsystem.h"
 
 #include "CommandGroups/ReefCommands.h"
 
@@ -54,6 +55,7 @@ private:
     ElevatorSubsystem m_elevator;
     CoralSubsystem m_Coral;
     AlgaeSubsystem m_Algae;
+    ClimberSubsystem m_Climber;
 
 
     PathPlannerUtils examplePPUtil;
