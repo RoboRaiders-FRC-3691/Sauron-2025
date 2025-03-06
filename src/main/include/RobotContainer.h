@@ -6,6 +6,7 @@
 
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/button/CommandXboxController.h>
+#include "Utils/MacroPad/CommandAdafruitMacroPad.h"
 #include "subsystems/CommandSwerveDrivetrain.h"
 
 #include <frc/smartdashboard/SendableChooser.h>
@@ -14,10 +15,12 @@
 
 #include "generated/TunerConstants.h"
 #include "Telemetry.h"
-#include "Utils/PathPlannerUtils.h"
 #include "Constants.h"
 #include "subsystems/ElevatorSubsystem.h"
 #include "subsystems/CoralSubsystem.h"
+#include "subsystems/ClimberSubsystem.h"
+
+#include "CommandGroups/ReefCommands.h"
 
 class RobotContainer {
 private:
@@ -36,22 +39,23 @@ private:
     Telemetry logger{MaxSpeed};
 
     frc2::CommandXboxController m_XboxController{OperatorConstants::kXboxControllerPort};
+    CommandAdafruitMacroPad m_MacroPad{OperatorConstants::kMacroPadPort};
 
 public:
     subsystems::CommandSwerveDrivetrain drivetrain{TunerConstants::CreateDrivetrain()};
 
     RobotContainer();
 
-    frc2::CommandPtr GetAutonomousCommand();
+    frc2::Command* GetAutonomousCommand();
 
 private:
     void ConfigureBindings();
 
     ElevatorSubsystem m_elevator;
     CoralSubsystem m_Coral;
+    AlgaeSubsystem m_Algae;
+    ClimberSubsystem m_Climber;
 
 
-    PathPlannerUtils examplePPUtil;
-    std::vector<pathplanner::PathPlannerAuto> PPautoVect;
-    frc::SendableChooser<int> autoChooser;
+    frc::SendableChooser<frc2::Command*> autoChooser;
 };

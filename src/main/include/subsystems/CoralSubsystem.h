@@ -27,7 +27,7 @@ class CoralSubsystem : public frc2::SubsystemBase {
         void Periodic();
 
         //Sets the coral mechanism Angle
-        frc2::CommandPtr SetAngle(units::degree_t angle);
+        frc2::CommandPtr SetAngle(units::angle::turn_t angle);
 
         frc2::CommandPtr SetIntake(units::angular_velocity::revolutions_per_minute_t intakeVelocity);
 

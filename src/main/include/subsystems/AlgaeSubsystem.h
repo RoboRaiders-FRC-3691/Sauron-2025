@@ -27,7 +27,7 @@ class AlgaeSubsystem : public frc2::SubsystemBase {
         void Periodic();
 
         //Sets the algae mechanism Angle
-        frc2::CommandPtr SetAngle(units::degree_t angle);
+        frc2::CommandPtr SetAngle(units::angle::turn_t angle);
 
         frc2::CommandPtr SetIntake(units::angular_velocity::revolutions_per_minute_t intakeVelocity);
 
@@ -35,7 +35,7 @@ class AlgaeSubsystem : public frc2::SubsystemBase {
 
         frc2::CommandPtr RunIntakeFor(units::angular_velocity::revolutions_per_minute_t intakeVelocity, units::time::second_t timeout);
 
-        frc2::CommandPtr IntakeWithSensor(units::angular_velocity::revolutions_per_minute_t intakeVelocity); //WIP see .cpp
+        //frc2::CommandPtr IntakeWithSensor(units::angular_velocity::revolutions_per_minute_t intakeVelocity); //WIP see .cpp
 
         //Gets algae mechanism angle
         units::turn_t GetAngle();

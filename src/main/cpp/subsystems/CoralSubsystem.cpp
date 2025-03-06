@@ -13,7 +13,7 @@ void CoralSubsystem::Periodic(){
 }
 
 //Command that sets the coral mechanism angle
-frc2::CommandPtr CoralSubsystem::SetAngle(units::degree_t angle){
+frc2::CommandPtr CoralSubsystem::SetAngle(units::angle::turn_t angle){
     return RunOnce([this, angle] {
         if(ValidAngle(angle)){
     		AngleMotor.SetControl(m_PoseRequest.WithPosition(angle));

@@ -94,6 +94,10 @@
     "typeindex": "cpp",
     "typeinfo": "cpp",
     "variant": "cpp",
-    "*.inc": "cpp"
+    "*.inc": "cpp",
+    "xmemory": "cpp",
+    "xtr1common": "cpp",
+    "xutility": "cpp",
+    "xstring": "cpp"
   }
 }
