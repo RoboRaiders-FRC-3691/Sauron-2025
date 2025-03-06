@@ -20,7 +20,7 @@ class ElevatorSubsystem : public frc2::SubsystemBase {
         //ElevatorSubsystem constructor
         ElevatorSubsystem();
 
-        void Periodic();
+        void Periodic() override;
 
         //Converts a number of rotations into a height for the elevator
         units::inch_t RotationsToHeight(units::turn_t turns);

@@ -24,7 +24,7 @@ class AlgaeSubsystem : public frc2::SubsystemBase {
         //AlgaeSubsystem constructor
         AlgaeSubsystem();
 
-        void Periodic();
+        void Periodic() override;
 
         //Sets the algae mechanism Angle
         frc2::CommandPtr SetAngle(units::angle::turn_t angle);

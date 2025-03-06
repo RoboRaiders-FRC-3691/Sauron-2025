@@ -20,7 +20,7 @@ class ClimberSubsystem : public frc2::SubsystemBase {
         //ElevatorSubsystem constructor
         ClimberSubsystem();
 
-        void Periodic();
+        void Periodic() override;
 
         //Sets climber angle
         frc2::CommandPtr SetAngle(units::angle::turn_t angle);

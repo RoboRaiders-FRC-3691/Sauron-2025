@@ -24,7 +24,7 @@ class CoralSubsystem : public frc2::SubsystemBase {
         //CoralSubsystem constructor
         CoralSubsystem();
 
-        void Periodic();
+        void Periodic() override;
 
         //Sets the coral mechanism Angle
         frc2::CommandPtr SetAngle(units::angle::turn_t angle);
