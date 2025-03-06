@@ -156,7 +156,7 @@ namespace CoralConstants{
     
     //Arrays for the coral placement heights, and the coral placement angles. Index = Level - 1. (e.g. L1 = [0])
     static constexpr wpi::array<units::length::inch_t, 4U> kCoralPlacementHeights = {2.5_in, 17_in, 28_in, 48.875_in};
-    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementCoralAngles = {0.06_tr, 0.09_tr, .12_tr, .15_tr};
+    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementCoralAngles = {0.01_tr, 0.04_tr, .07_tr, .10_tr};//{0.06_tr, 0.09_tr, .12_tr, .15_tr};
     static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementAlgaeAngles = {.04_tr, .04_tr, .04_tr, .04_tr};
     
     static constexpr units::angular_velocity::revolutions_per_minute_t kCoralPlacementVelocity = -1000_rpm;
@@ -174,14 +174,14 @@ namespace AlgaeConstants{
     //Config constants and limits are preliminary and need to be fine tuned.
     static constexpr ctre::phoenix6::configs::TalonFXConfiguration kAlgaeAngleConfigs = ctre::phoenix6::configs::TalonFXConfiguration{}
         .WithSlot0(ctre::phoenix6::configs::Slot0Configs{}
-            .WithKS(.20)
-            .WithKV(.15)
+            .WithKS(.25)
+            .WithKV(.20)
             .WithKA(.015)
-            .WithKG(.17)
+            .WithKG(.3)
             
-            .WithKP(8)
+            .WithKP(8.5)
             .WithKI(0)
-            .WithKD(.15)
+            .WithKD(.25)
             .WithGravityType(ctre::phoenix6::signals::GravityTypeValue::Arm_Cosine)
         )
         .WithMotionMagic(ctre::phoenix6::configs::MotionMagicConfigs{}

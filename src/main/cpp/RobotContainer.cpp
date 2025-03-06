@@ -14,13 +14,7 @@ RobotContainer::RobotContainer() //: PPAutoVect(examplePPUtil.GetAutos())
 
     //Add Options to the sendable chooser
     //Default: No auto with value of int -1
-    autoChooser.SetDefaultOption("No Auto", -1);
-    
-    //For loop to add an option for each value in PPAutoVect.
-    //The name is the auto command name and the value is i (the index of the auto)
-    for(int i = 0; i < int(PPAutoVect.size()); i++){
-        autoChooser.AddOption(PPAutoVect[i].GetName(), i);
-    }
+    autoChooser = pathplanner::AutoBuilder::buildAutoChooser();
 
     frc::SmartDashboard::PutData("Auto Selector", &autoChooser);
 }
@@ -118,11 +112,11 @@ void RobotContainer::ConfigureBindings()
     m_XboxController.RightBumper().WhileTrue(m_Coral.RunIntake(-3000_rpm));
     m_XboxController.LeftBumper().WhileTrue(m_Coral.RunIntake(3000_rpm));
 
-    m_XboxController.B().OnTrue(m_Coral.SetAngle(.32_tr));
+    m_XboxController.B().OnTrue(m_Coral.SetAngle(.27_tr));
     m_XboxController.A().WhileTrue(m_elevator.SetHeight(5_in));
 
     //Temp Test Coral Intake Angle
-    m_XboxController.X().OnTrue(m_Coral.SetAngle(.30_tr));
+    m_XboxController.X().OnTrue(m_Coral.SetAngle(.25_tr));
 
     //Climber controls
     m_MacroPad.GetKey(1, 1).OnTrue(m_Climber.SetAngle(-700_tr));
@@ -134,14 +128,9 @@ void RobotContainer::ConfigureBindings()
 
 }
 
-frc2::CommandPtr RobotContainer::GetAutonomousCommand(){
+frc2::Command* RobotContainer::GetAutonomousCommand(){
     //Grab the selected autoChooser option
     //If the value is -1 then do default(dont run an auto routine)
     //Otherwise the value of the autoChooser is the PPAutoVect index for the auto selected  
-    if(autoChooser.GetSelected() == -1){
-        return frc2::cmd::Print("No Auto Selected");
-    }
-    else{
-        return std::move(PPAutoVect[autoChooser.GetSelected()]).ToPtr();
-    }
+        return autoChooser.GetSelected();
 }

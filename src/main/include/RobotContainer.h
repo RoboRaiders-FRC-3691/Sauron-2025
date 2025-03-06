@@ -15,7 +15,6 @@
 
 #include "generated/TunerConstants.h"
 #include "Telemetry.h"
-#include "Utils/PathPlannerUtils.h"
 #include "Constants.h"
 #include "subsystems/ElevatorSubsystem.h"
 #include "subsystems/CoralSubsystem.h"
@@ -47,7 +46,7 @@ public:
 
     RobotContainer();
 
-    frc2::CommandPtr GetAutonomousCommand();
+    frc2::Command* GetAutonomousCommand();
 
 private:
     void ConfigureBindings();
@@ -58,7 +57,5 @@ private:
     ClimberSubsystem m_Climber;
 
 
-    PathPlannerUtils examplePPUtil;
-    std::vector<pathplanner::PathPlannerAuto> PPAutoVect;
-    frc::SendableChooser<int> autoChooser;
+    frc::SendableChooser<frc2::Command*> autoChooser;
 };
