@@ -6,9 +6,11 @@
 
 #include <frc2/command/Commands.h>
 
-RobotContainer::RobotContainer() //: PPAutoVect(examplePPUtil.GetAutos())
+RobotContainer::RobotContainer()
 {
     ConfigureBindings();
+
+    OrchestraSetUp();
 
     drivetrain.ConfigurePathPlanner();
 
@@ -90,8 +92,6 @@ void RobotContainer::ConfigureBindings()
     //m_MacroPad.GetKey(4,1).OnTrue(m_Algae.SetAngle(-.25_tr));
     
 
-    
-
     m_XboxController.RightTrigger().WhileTrue(m_Algae.RunIntake(2000_rpm));
     m_XboxController.LeftTrigger().WhileTrue(m_Algae.RunIntake(-2000_rpm));
 
@@ -103,10 +103,6 @@ void RobotContainer::ConfigureBindings()
 
     m_MacroPad.GetKey(1,2).OnTrue(ReefCommands::RemoveAlgaeAtLevel(m_Coral, m_Algae, m_elevator, 1));
     m_MacroPad.GetKey(2,2).OnTrue(ReefCommands::RemoveAlgaeAtLevel(m_Coral, m_Algae, m_elevator, 0));
-
-
-
-
 
     //Coral controls
     m_XboxController.RightBumper().WhileTrue(m_Coral.RunIntake(-3000_rpm));
@@ -125,12 +121,49 @@ void RobotContainer::ConfigureBindings()
 
     //m_MacroPad.GetKey(1, 2).OnTrue(m_elevator.SetHeight(38_in));
     //m_MacroPad.GetKey(1, 3).OnTrue(m_elevator.SetHeight(24_in));
+}
+
+void RobotContainer::OrchestraSetUp(){
+    //Add all the swerve modules to the orchestra
+    for (auto& module : drivetrain.GetModules()){
+        m_Orchestra.AddInstrument(module->GetDriveMotor());
+        m_Orchestra.AddInstrument(module->GetSteerMotor());
+    }
+
+    //Add the left and right elevator motors to the orchestra
+    m_Orchestra.AddInstrument(m_elevator.GetRightMotor());
+    m_Orchestra.AddInstrument(m_elevator.GetLeftMotor());
+
+    //Add the Coral and Algae Talon FX (Angle Motors) to the orchestra
+    m_Orchestra.AddInstrument(m_Coral.GetAngleMotor());
+    m_Orchestra.AddInstrument(m_Algae.GetAngleMotor());
+
+    //Add the Climber motor to the orchestra
+    m_Orchestra.AddInstrument(m_Climber.GetClimbMotor());
+
+    m_Orchestra.LoadMusic(frc::filesystem::GetDeployDirectory()
+                          .append("/Music/Dave Rodgers - Déjà Vu.chrp")
+                          .c_str());
+
+    //m_Orchestra.Play();
+
+    //Below Comment is WIP and will likely be replaced with an alternative solution
+    //m_TrackChooser.AddOption("Déjà Vu", (frc::filesystem::GetDeployDirectory().append("/Music/Dave Rodgers - Déjà Vu.chrp")));
+    
+    //m_PausePlay.AddBinding()
+    //m_PausePlay.ToggleOnTrue(frc2::cmd::RunOnce([this] { m_Orchestra.Play(); }));
+
+    //m_PausePlay.ToggleOnFalse(frc2::cmd::RunOnce([this] { m_Orchestra.Pause(); }));
+
+    //m_TrackStop.ToggleOnTrue(frc2::cmd::RunOnce([this] { m_Orchestra.Stop(); }));
+
+    //frc::SmartDashboard::PutData("Track Chooser", &m_TrackChooser);    
 
 }
+
 
 frc2::Command* RobotContainer::GetAutonomousCommand(){
     //Grab the selected autoChooser option
-    //If the value is -1 then do default(dont run an auto routine)
-    //Otherwise the value of the autoChooser is the PPAutoVect index for the auto selected  
-        return autoChooser.GetSelected();
+    return autoChooser.GetSelected();
 }
+

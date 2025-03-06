@@ -4,6 +4,9 @@
 
 #pragma once
 
+#include <filesystem>
+#include <frc/Filesystem.h>
+
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/button/CommandXboxController.h>
 #include "Utils/MacroPad/CommandAdafruitMacroPad.h"
@@ -12,6 +15,8 @@
 #include <frc/smartdashboard/SendableChooser.h>
 
 #include <pathplanner/lib/commands/PathPlannerAuto.h>
+
+#include "ctre/phoenix6/Orchestra.hpp"
 
 #include "generated/TunerConstants.h"
 #include "Telemetry.h"
@@ -55,7 +60,16 @@ private:
     CoralSubsystem m_Coral;
     AlgaeSubsystem m_Algae;
     ClimberSubsystem m_Climber;
+    
+    void OrchestraSetUp();
 
+    ctre::phoenix6::Orchestra m_Orchestra;
 
+    //Below Comment is WIP and will likely be replaced with an alternative solution
+    // frc::SendableChooser<std::filesystem::path> m_TrackChooser;
+    // frc2::Trigger m_PausePlay;
+    // frc2::Trigger m_TrackStop;
+    
+    
     frc::SendableChooser<frc2::Command*> autoChooser;
 };

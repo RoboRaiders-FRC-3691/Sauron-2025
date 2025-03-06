@@ -39,3 +39,11 @@ bool ElevatorSubsystem::ValidHeight(units::inch_t height){
     }
     return true;
 }
+
+ctre::phoenix6::hardware::TalonFX& ElevatorSubsystem::GetRightMotor(){
+    return RightMotor;
+}
+
+ctre::phoenix6::hardware::TalonFX& ElevatorSubsystem::GetLeftMotor(){
+    return LeftMotor;
+}

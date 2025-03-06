@@ -37,6 +37,12 @@ class ElevatorSubsystem : public frc2::SubsystemBase {
         //Checks if a given height is within the limits of the elevator
         bool ValidHeight(units::inch_t height);
 
+        //Returns a refrence to the elevator right motor
+        ctre::phoenix6::hardware::TalonFX& GetRightMotor();
+
+        //Returns a refrence to the elevator left motor
+        ctre::phoenix6::hardware::TalonFX& GetLeftMotor();
+
     private:
         //Declare the elevator motors
         ctre::phoenix6::hardware::TalonFX RightMotor;

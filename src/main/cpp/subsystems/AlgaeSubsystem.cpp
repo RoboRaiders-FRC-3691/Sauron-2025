@@ -57,3 +57,11 @@ bool AlgaeSubsystem::ValidAngle(units::degree_t angle){
     }
     return true;
 }
+
+ctre::phoenix6::hardware::TalonFX& AlgaeSubsystem::GetAngleMotor(){
+    return AngleMotor;
+}
+
+ctre::phoenix6::hardware::TalonFXS& AlgaeSubsystem::GetIntakeMotor(){
+    return IntakeMotor;
+}
