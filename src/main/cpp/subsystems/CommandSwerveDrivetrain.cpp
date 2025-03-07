@@ -3,6 +3,12 @@
 
 using namespace subsystems;
 
+// Implemented by Team 3691
+// Initialize function that runs regardless of which template constructor is used
+void CommandSwerveDrivetrain::DrivetrainInit(){
+    frc::SmartDashboard::PutData("Swerve Widget", &m_swerveWidget);
+}
+
 void CommandSwerveDrivetrain::Periodic()
 {
     /*
@@ -25,6 +31,8 @@ void CommandSwerveDrivetrain::Periodic()
     }
 
     AddClusterVisionMeasurments();
+
+    m_swerveWidget.Update(SwerveDrivetrain::GetState());
 }
 
 void CommandSwerveDrivetrain::StartSimThread()
@@ -52,12 +60,20 @@ void CommandSwerveDrivetrain::ConfigurePathPlanner(){
         [this](){ return this->GetState().Pose; }, // Robot pose supplier
         [this](frc::Pose2d newPose){ this->ResetPose(newPose); }, // Method to reset odometry (will be called if your auto has a starting pose)
         [this](){ return this->GetState().Speeds; }, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-        [this](auto speeds){this->SetControl(m_AutoRequest.WithSpeeds(speeds));}, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
-        std::make_shared<pathplanner::PPHolonomicDriveController>( // PPHolonomicController is the built in path following controller for holonomic drive trains
-            pathplanner::PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
-            pathplanner::PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
+                [this](frc::ChassisSpeeds const &speeds, pathplanner::DriveFeedforwards const &feedforwards) {
+            return SetControl(
+                m_pathApplyRobotSpeeds.WithSpeeds(speeds)
+                    .WithWheelForceFeedforwardsX(feedforwards.robotRelativeForcesX)
+                    .WithWheelForceFeedforwardsY(feedforwards.robotRelativeForcesY)
+            );
+        },
+        std::make_shared<pathplanner::PPHolonomicDriveController>(
+            // PID constants for translation
+            pathplanner::PIDConstants{10.0, 0.0, 0.0},
+            // PID constants for rotation
+            pathplanner::PIDConstants{7.0, 0.0, 0.0}
         ),
-        config, // The robot configuration
+        std::move(config),
         []() {
             // Boolean supplier that controls when the path will be mirrored for the red alliance
             // This will flip the path being followed to the red side of the field.
@@ -83,3 +99,4 @@ void CommandSwerveDrivetrain::AddClusterVisionMeasurments(){
         }
     }
 }
+

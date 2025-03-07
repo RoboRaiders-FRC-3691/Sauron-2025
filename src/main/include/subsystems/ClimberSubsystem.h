@@ -20,13 +20,16 @@ class ClimberSubsystem : public frc2::SubsystemBase {
         //ElevatorSubsystem constructor
         ClimberSubsystem();
 
-        void Periodic();
+        void Periodic() override;
 
         //Sets climber angle
         frc2::CommandPtr SetAngle(units::angle::turn_t angle);
 
         //Checks if a given angle is within the limits of the climber
         bool ValidAngle(units::angle::turn_t angle);
+
+        //Returns a refrence to the climber motor
+        ctre::phoenix6::hardware::TalonFX& GetClimbMotor();
 
     private:
         //Declare the Climber motors

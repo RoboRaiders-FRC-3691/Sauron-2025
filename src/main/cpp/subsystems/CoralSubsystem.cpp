@@ -71,3 +71,11 @@ bool CoralSubsystem::ValidAngle(units::degree_t angle){
     }
     return true;
 }
+
+ctre::phoenix6::hardware::TalonFX& CoralSubsystem::GetAngleMotor(){
+    return AngleMotor;
+}
+
+ctre::phoenix6::hardware::TalonFXS& CoralSubsystem::GetIntakeMotor(){
+    return IntakeMotor;
+}

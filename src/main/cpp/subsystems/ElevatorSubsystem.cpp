@@ -5,7 +5,7 @@ using namespace ElevatorConstants;
 
 ElevatorSubsystem::ElevatorSubsystem() : RightMotor{kElevatorMotorRightPort, kElevatorCANLoop}, LeftMotor{kElevatorMotorLeftPort, kElevatorCANLoop}, m_PoseRequest(0_tr){
     RightMotor.GetConfigurator().Apply(kElevatorMotorConfigs);
-    LeftMotor.SetControl(ctre::phoenix6::controls::Follower{kElevatorMotorRightPort, true});
+    LeftMotor.SetControl(ctre::phoenix6::controls::Follower{kElevatorMotorRightPort, true}); //Temp Comment for sim testing
     
 }
 
@@ -38,4 +38,12 @@ bool ElevatorSubsystem::ValidHeight(units::inch_t height){
         return false;
     }
     return true;
+}
+
+ctre::phoenix6::hardware::TalonFX& ElevatorSubsystem::GetRightMotor(){
+    return RightMotor;
+}
+
+ctre::phoenix6::hardware::TalonFX& ElevatorSubsystem::GetLeftMotor(){
+    return LeftMotor;
 }

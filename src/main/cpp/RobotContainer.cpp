@@ -6,17 +6,13 @@
 
 #include <frc2/command/Commands.h>
 
-RobotContainer::RobotContainer() //: PPAutoVect(examplePPUtil.GetAutos())
+RobotContainer::RobotContainer() : m_DashOrchestra(frc::filesystem::GetDeployDirectory().append("\\Music\\"))
 {
     ConfigureBindings();
 
-    drivetrain.ConfigurePathPlanner();
+    OrchestraSetUp();
 
-    //Add Options to the sendable chooser
-    //Default: No auto with value of int -1
-    autoChooser = pathplanner::AutoBuilder::buildAutoChooser();
-
-    frc::SmartDashboard::PutData("Auto Selector", &autoChooser);
+    PathPlannerSetUp();
 }
 
 void RobotContainer::ConfigureBindings()
@@ -32,10 +28,10 @@ void RobotContainer::ConfigureBindings()
         })
     );
 
-    m_XboxController.POVLeft().WhileTrue(drivetrain.ApplyRequest([this]() -> auto&& { return brake; }));
-    m_XboxController.POVRight().WhileTrue(drivetrain.ApplyRequest([this]() -> auto&& {
-        return point.WithModuleDirection(frc::Rotation2d{-m_XboxController.GetLeftY(), -m_XboxController.GetLeftX()});
-    }));
+    // m_XboxController.POVLeft().WhileTrue(drivetrain.ApplyRequest([this]() -> auto&& { return brake; }));
+    // m_XboxController.POVRight().WhileTrue(drivetrain.ApplyRequest([this]() -> auto&& {
+    //     return point.WithModuleDirection(frc::Rotation2d{-m_XboxController.GetLeftY(), -m_XboxController.GetLeftX()});
+    // })); // Commented out for debugging
 
     // Run SysId routines when holding back/start and X/Y.
     // Note that each routine should be run exactly once in a single log.
@@ -44,53 +40,11 @@ void RobotContainer::ConfigureBindings()
     (m_XboxController.Start() && m_XboxController.Y()).WhileTrue(drivetrain.SysIdQuasistatic(frc2::sysid::Direction::kForward));
     (m_XboxController.Start() && m_XboxController.X()).WhileTrue(drivetrain.SysIdQuasistatic(frc2::sysid::Direction::kReverse));
 
-    // reset the field-centric heading on left bumper press
-    //m_XboxController.LeftBumper().OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
+    // reset the field-centric heading on Y button press
+    //m_XboxController.Y().OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
 
     drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
-    /*
-    m_XboxController.A().WhileTrue(m_elevator.SetHeight(2_in));
-    m_XboxController.X().WhileTrue(m_elevator.SetHeight(28_in));
-    m_XboxController.Y().WhileTrue(m_elevator.SetHeight(ElevatorConstants::kUpperLimit));
 
-    m_XboxController.B().WhileTrue(m_Coral.SetAngle(.12_tr));
-    m_XboxController.RightBumper().WhileTrue(m_Coral.SetAngle(.15_tr));
-    m_XboxController.LeftBumper().WhileTrue(m_Coral.RunIntakeFor(-1000_rpm, 2_s));
-    */
-    /*//Algae controls
-    m_MacroPad.GetKey(3,1).OnTrue(m_Algae.SetAngle(0_tr));
-    m_MacroPad.GetKey(4,1).OnTrue(m_Algae.SetAngle(-.07_tr));
-
-    m_XboxController.RightTrigger().WhileTrue(m_Algae.RunIntake(2000_rpm));
-    m_XboxController.LeftTrigger().WhileTrue(m_Algae.RunIntake(-2000_rpm));
-
-
-    //elevator controls
-    m_MacroPad.GetKey(4,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 0));
-    m_MacroPad.GetKey(3,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 1));
-    m_MacroPad.GetKey(2,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 2));
-    m_MacroPad.GetKey(1,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 3));
-
-
-    //Coral controls
-    m_XboxController.RightBumper().WhileTrue(m_Coral.RunIntake(-3000_rpm));
-    m_XboxController.LeftBumper().WhileTrue(m_Coral.RunIntake(3000_rpm));
-
-    m_XboxController.B().OnTrue(m_Coral.SetAngle(.35_tr));
-    m_XboxController.A().WhileTrue(m_elevator.SetHeight(5_in));
-
-    //Climber controls
-    m_MacroPad.GetKey(1, 1).OnTrue(m_Climber.SetAngle(0_tr));
-    m_MacroPad.GetKey(2, 1).OnTrue(m_Climber.SetAngle(200_tr));
-
-*/
-    //Algae controls
-    //m_MacroPad.GetKey(3,1).OnTrue(m_Algae.SetAngle(0_tr));
-
-    //m_MacroPad.GetKey(4,1).OnTrue(m_Algae.SetAngle(-.25_tr));
-    
-
-    
 
     m_XboxController.RightTrigger().WhileTrue(m_Algae.RunIntake(2000_rpm));
     m_XboxController.LeftTrigger().WhileTrue(m_Algae.RunIntake(-2000_rpm));
@@ -103,10 +57,6 @@ void RobotContainer::ConfigureBindings()
 
     m_MacroPad.GetKey(1,2).OnTrue(ReefCommands::RemoveAlgaeAtLevel(m_Coral, m_Algae, m_elevator, 1));
     m_MacroPad.GetKey(2,2).OnTrue(ReefCommands::RemoveAlgaeAtLevel(m_Coral, m_Algae, m_elevator, 0));
-
-
-
-
 
     //Coral controls
     m_XboxController.RightBumper().WhileTrue(m_Coral.RunIntake(-3000_rpm));
@@ -123,14 +73,44 @@ void RobotContainer::ConfigureBindings()
     m_MacroPad.GetKey(2, 1).OnTrue(m_Climber.SetAngle(-340_tr));
     m_MacroPad.GetKey(3, 1).OnTrue(m_Climber.SetAngle(-10_tr));
 
-    //m_MacroPad.GetKey(1, 2).OnTrue(m_elevator.SetHeight(38_in));
-    //m_MacroPad.GetKey(1, 3).OnTrue(m_elevator.SetHeight(24_in));
-
 }
+
+void RobotContainer::OrchestraSetUp(){
+    //Add all the swerve modules to the orchestra
+    for (auto& module : drivetrain.GetModules()){
+        m_DashOrchestra.AddInstrument(module->GetDriveMotor());
+        m_DashOrchestra.AddInstrument(module->GetSteerMotor());
+    }
+
+    //Add the left and right elevator motors to the orchestra
+    m_DashOrchestra.AddInstrument(m_elevator.GetRightMotor());
+    m_DashOrchestra.AddInstrument(m_elevator.GetLeftMotor());
+
+    //Add the Coral and Algae Talon FX (Angle Motors) to the orchestra
+    m_DashOrchestra.AddInstrument(m_Coral.GetAngleMotor());
+    m_DashOrchestra.AddInstrument(m_Algae.GetAngleMotor());
+
+    //Add the Climber motor to the orchestra
+    m_DashOrchestra.AddInstrument(m_Climber.GetClimbMotor());
+
+    //Start the orchestra dashboard interface
+    m_DashOrchestra.InitDashboardInterface();
+}
+
+void RobotContainer::PathPlannerSetUp(){
+    
+    drivetrain.ConfigurePathPlanner();
+
+    //Add Options to the sendable chooser
+    //Default: No auto with value of int -1
+    autoChooser = pathplanner::AutoBuilder::buildAutoChooser();
+
+    frc::SmartDashboard::PutData("Auto Selector", &autoChooser);
+}
+
 
 frc2::Command* RobotContainer::GetAutonomousCommand(){
     //Grab the selected autoChooser option
-    //If the value is -1 then do default(dont run an auto routine)
-    //Otherwise the value of the autoChooser is the PPAutoVect index for the auto selected  
-        return autoChooser.GetSelected();
+    return autoChooser.GetSelected();
 }
+

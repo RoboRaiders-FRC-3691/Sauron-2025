@@ -27,3 +27,7 @@ bool ClimberSubsystem::ValidAngle(units::angle::turn_t angle){
     }
     return true;
 }
+
+ctre::phoenix6::hardware::TalonFX& ClimberSubsystem::GetClimbMotor(){
+    return ClimbMotor;
+}

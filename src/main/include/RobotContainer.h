@@ -4,10 +4,15 @@
 
 #pragma once
 
+#include <filesystem>
+#include <frc/Filesystem.h>
+
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/button/CommandXboxController.h>
 #include "Utils/MacroPad/CommandAdafruitMacroPad.h"
 #include "subsystems/CommandSwerveDrivetrain.h"
+#include "Utils/Widgets/SwerveWidget.h"
+#include "Utils/Widgets/DashboardOrchestra.h"
 
 #include <frc/smartdashboard/SendableChooser.h>
 
@@ -55,7 +60,12 @@ private:
     CoralSubsystem m_Coral;
     AlgaeSubsystem m_Algae;
     ClimberSubsystem m_Climber;
+    
+    void OrchestraSetUp();
 
+    Widgets::DashboardOrchestra m_DashOrchestra;
 
+    void PathPlannerSetUp();
+    
     frc::SendableChooser<frc2::Command*> autoChooser;
 };

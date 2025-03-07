@@ -24,7 +24,7 @@ class AlgaeSubsystem : public frc2::SubsystemBase {
         //AlgaeSubsystem constructor
         AlgaeSubsystem();
 
-        void Periodic();
+        void Periodic() override;
 
         //Sets the algae mechanism Angle
         frc2::CommandPtr SetAngle(units::angle::turn_t angle);
@@ -42,6 +42,12 @@ class AlgaeSubsystem : public frc2::SubsystemBase {
 
         //Checks if a given angle is inside of the algae mechanism angle limits
         bool ValidAngle(units::degree_t angle);
+
+        //Returns a refrence to the coral angle motor
+        ctre::phoenix6::hardware::TalonFX& GetAngleMotor();
+
+        //Returns a refrence to the coral intake motor
+        ctre::phoenix6::hardware::TalonFXS& GetIntakeMotor();
 
     private:
         //Declare the algae motors
