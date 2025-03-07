@@ -18,7 +18,7 @@
 
 class SwerveWidget : public nt::NTSendable, public wpi::SendableHelper<SwerveWidget> {
     public:
-        using Entry = size_t;
+        //using Entry = size_t; probably not needed remove if functioning without
 
         SwerveWidget();
 

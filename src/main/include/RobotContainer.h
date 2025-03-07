@@ -11,6 +11,8 @@
 #include <frc2/command/button/CommandXboxController.h>
 #include "Utils/MacroPad/CommandAdafruitMacroPad.h"
 #include "subsystems/CommandSwerveDrivetrain.h"
+#include "Utils/Widgets/SwerveWidget.h"
+#include "Utils/Widgets/OrchestraInterface.h"
 
 #include <frc/smartdashboard/SendableChooser.h>
 
@@ -64,12 +66,12 @@ private:
     void OrchestraSetUp();
 
     ctre::phoenix6::Orchestra m_Orchestra;
+    OrchestraInterface OrchestraInterface;
 
     //Below Comment is WIP and will likely be replaced with an alternative solution
     // frc::SendableChooser<std::filesystem::path> m_TrackChooser;
     // frc2::Trigger m_PausePlay;
     // frc2::Trigger m_TrackStop;
-    
     
     frc::SendableChooser<frc2::Command*> autoChooser;
 };

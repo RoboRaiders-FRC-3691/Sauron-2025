@@ -6,7 +6,7 @@
 
 #include <frc2/command/Commands.h>
 
-RobotContainer::RobotContainer()
+RobotContainer::RobotContainer() : OrchestraInterface(m_Orchestra, frc::filesystem::GetDeployDirectory().append("\\Music\\"))
 {
     ConfigureBindings();
 
@@ -140,24 +140,6 @@ void RobotContainer::OrchestraSetUp(){
 
     //Add the Climber motor to the orchestra
     m_Orchestra.AddInstrument(m_Climber.GetClimbMotor());
-
-    m_Orchestra.LoadMusic(frc::filesystem::GetDeployDirectory()
-                          .append("/Music/Dave Rodgers - Déjà Vu.chrp")
-                          .c_str());
-
-    //m_Orchestra.Play();
-
-    //Below Comment is WIP and will likely be replaced with an alternative solution
-    //m_TrackChooser.AddOption("Déjà Vu", (frc::filesystem::GetDeployDirectory().append("/Music/Dave Rodgers - Déjà Vu.chrp")));
-    
-    //m_PausePlay.AddBinding()
-    //m_PausePlay.ToggleOnTrue(frc2::cmd::RunOnce([this] { m_Orchestra.Play(); }));
-
-    //m_PausePlay.ToggleOnFalse(frc2::cmd::RunOnce([this] { m_Orchestra.Pause(); }));
-
-    //m_TrackStop.ToggleOnTrue(frc2::cmd::RunOnce([this] { m_Orchestra.Stop(); }));
-
-    //frc::SmartDashboard::PutData("Track Chooser", &m_TrackChooser);    
 
 }
 
