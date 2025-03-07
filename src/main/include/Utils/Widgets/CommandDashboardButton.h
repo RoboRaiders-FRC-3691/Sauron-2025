@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableInstance.h>
 #include <networktables/BooleanTopic.h>
@@ -15,7 +17,7 @@ class CommandDashboardButton{
         frc2::Trigger GetButton(
                             frc::EventLoop* loop = frc2::CommandScheduler::GetInstance().GetDefaultButtonLoop());
 
-        void SetState(bool newState);
+        void SetState(bool newState, units::time::microsecond_t time = 0_s);
 
     private:
         std::shared_ptr<nt::NetworkTable> ntTable;

@@ -19,6 +19,9 @@
 
 #include "Utils/Vision/VisionCluster.h"
 
+#include <frc/smartdashboard/SmartDashboard.h>
+#include "Utils/Widgets/SwerveWidget.h"
+
 using namespace ctre::phoenix6;
 
 namespace subsystems {
@@ -134,6 +137,7 @@ public:
         if (utils::IsSimulation()) {
             StartSimThread();
         }
+        DrivetrainInit();
     }
 
     /**
@@ -160,6 +164,7 @@ public:
         if (utils::IsSimulation()) {
             StartSimThread();
         }
+        DrivetrainInit();
     }
 
     /**
@@ -193,7 +198,14 @@ public:
         if (utils::IsSimulation()) {
             StartSimThread();
         }
+        DrivetrainInit();
     }
+
+    // Implemented by Team 3691
+    // Initialize function that runs regardless of which template constructor is used
+    void DrivetrainInit();
+
+
 
     /**
      * \brief Returns a command that applies the specified control request to this swerve drivetrain.
@@ -301,9 +313,9 @@ private:
 
     VisionCluster m_visionCluster;
     std::vector<VisionPoseResult> m_visionResults;
-    
-//public:
-    //ctre::phoenix6::Orchestra
+
+    SwerveWidget m_swerveWidget;
+
 };
 
 }

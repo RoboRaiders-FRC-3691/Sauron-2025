@@ -3,6 +3,12 @@
 
 using namespace subsystems;
 
+// Implemented by Team 3691
+// Initialize function that runs regardless of which template constructor is used
+void CommandSwerveDrivetrain::DrivetrainInit(){
+    frc::SmartDashboard::PutData("Swerve Widget", &m_swerveWidget);
+}
+
 void CommandSwerveDrivetrain::Periodic()
 {
     /*
@@ -24,7 +30,9 @@ void CommandSwerveDrivetrain::Periodic()
         }
     }
 
-    AddClusterVisionMeasurments();
+    //AddClusterVisionMeasurments();
+
+    //m_swerveWidget.Update(SwerveDrivetrain::GetState());
 }
 
 void CommandSwerveDrivetrain::StartSimThread()
@@ -83,3 +91,4 @@ void CommandSwerveDrivetrain::AddClusterVisionMeasurments(){
         }
     }
 }
+
