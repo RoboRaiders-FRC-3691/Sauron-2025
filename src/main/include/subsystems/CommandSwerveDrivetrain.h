@@ -42,6 +42,9 @@ class CommandSwerveDrivetrain : public frc2::SubsystemBase, public TunerSwerveDr
     /* Keep track if we've ever applied the operator perspective before or not */
     bool m_hasAppliedOperatorPerspective = false;
 
+    /** Swerve request to apply during robot-centric path following */
+    swerve::requests::ApplyRobotSpeeds m_pathApplyRobotSpeeds;
+
     /* Swerve requests to apply during SysId characterization */
     swerve::requests::SysIdSwerveTranslation m_translationCharacterization;
     swerve::requests::SysIdSwerveSteerGains m_steerCharacterization;
@@ -307,9 +310,6 @@ public:
 
 private:
     void StartSimThread();
-
-    swerve::requests::ApplyRobotSpeeds m_AutoRequest = swerve::requests::ApplyRobotSpeeds{}
-        .WithDriveRequestType(swerve::impl::DriveRequestType::OpenLoopVoltage);
 
     VisionCluster m_visionCluster;
     std::vector<VisionPoseResult> m_visionResults;
