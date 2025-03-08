@@ -39,7 +39,7 @@ void Widgets::DashboardOrchestra::UpdateTrackList(std::filesystem::path musicFol
 void Widgets::DashboardOrchestra::InitDashboardInterface(){
     frc::SmartDashboard::PutData("Track Select", &m_TrackSelector);
 
-    m_PausePlay.GetButton().OnTrue(frc2::cmd::RunOnce([this]{
+    m_PausePlay.BindRising([this]{
             ctre::phoenix6::Orchestra::Play();
             std::cout << "Playing Track." << std::endl;
             //Debug Statements
@@ -49,10 +49,10 @@ void Widgets::DashboardOrchestra::InitDashboardInterface(){
             // else{
             //     std::cout << "Orch isnt actually playing" << std::endl;
             // }
-        }).AsProxy());
+        });
 
 
-    m_PausePlay.GetButton().OnFalse(frc2::cmd::RunOnce([this]{
+    m_PausePlay.BindFalling([this]{
             //Debug Statements
             // if(ctre::phoenix6::Orchestra::IsPlaying()){
             //     std::cout << "Orch was playing now stopping" << std::endl;
@@ -63,13 +63,13 @@ void Widgets::DashboardOrchestra::InitDashboardInterface(){
 
             ctre::phoenix6::Orchestra::Pause();
             std::cout << "Track Paused." << std::endl;
-        }).AsProxy());
+        });
     
-    m_StopTrack.GetButton().OnTrue(frc2::cmd::RunOnce([this]{
+    m_StopTrack.BindRising([this]{
             ctre::phoenix6::Orchestra::Stop();
             std::cout << "Track Stopped." << std::endl;
             m_StopTrack.SetState(false);
-        }).AsProxy());
+        });
 
     m_TrackSelector.OnChange([this](std::filesystem::path trackChoice){
             if(ctre::phoenix6::Orchestra::IsPlaying()){
