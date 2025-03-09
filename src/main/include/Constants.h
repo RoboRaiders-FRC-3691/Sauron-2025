@@ -67,6 +67,7 @@ namespace ElevatorConstants{
     // Variable to store the CAN bus used by the coral subsystem
     static constexpr std::string_view kElevatorCANLoop = "*"; // Note: for ctre star is "any CANivore seen by the program"
 
+    // Elevator motor ports
     static constexpr int kElevatorMotorRightPort = 3; 
     static constexpr int kElevatorMotorLeftPort = 4;  
 
@@ -100,9 +101,11 @@ namespace CoralConstants{
     // Variable to store the CAN bus used by the coral subsystem
     static constexpr std::string_view kCoralCANLoop = ""; // Note: for ctre empty quotes is "RoboRIO"
 
+    // Coral motor ports
     static constexpr int kCoralAngleMotorPort = 12; 
     static constexpr int kCoralIntakeMotorPort = 13;  
 
+    // Coral CANdi port
     static constexpr int kCoralCANdiPort = 23;  
 
     // Coral angle motor configs
@@ -177,6 +180,7 @@ namespace AlgaeConstants{
     // Variable to store the CAN bus used by the coral subsystem
     static constexpr std::string_view kAlgaeCANLoop = ""; // Note: for ctre empty quotes is "RoboRIO"
 
+    // Algae motor ports
     static constexpr int kAlgaeAngleMotorPort = 11; 
     static constexpr int kAlgaeIntakeMotorPort = 7;  
 
@@ -248,6 +252,7 @@ namespace ClimberConstants{
     // Variable to store the CAN bus used by the climber subsystem
     static constexpr std::string_view kClimberCANLoop = "*"; // Note: for ctre star is "any CANivore seen by the program"
 
+    // Climber motor port
     static constexpr int kClimberMotorPort = 10; 
 
     // Climber motor configs (sensor to mechanism ratio currently wrong at 1:1)
