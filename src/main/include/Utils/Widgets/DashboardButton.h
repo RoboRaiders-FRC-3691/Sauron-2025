@@ -14,10 +14,13 @@
 
 class DashboardButton{
     public:
+        // DashboardButton constructor
         DashboardButton(std::string name);
 
+        // DashboardButton constructor
         DashboardButton(std::string name, std::shared_ptr<nt::NetworkTableInstance> ntInstance);
 
+        // DashboardButton constructor
         DashboardButton(std::string name, std::shared_ptr<nt::NetworkTableInstance> ntInstance,  frc::EventLoop* loop);
     
         // Get the button state as a bool
@@ -39,13 +42,19 @@ class DashboardButton{
         void BindFalse(std::function<void()> action);
 
     private:
+        // Define the button network table
         std::shared_ptr<nt::NetworkTable> m_Table;
+
+        // Define the button bool entry
         nt::BooleanEntry m_ButtonEntry;
+
+        // Define the button loop
         frc::EventLoop* m_loop;
+
+        // Define various button bool events
         frc::BooleanEvent m_MainEvent;
         frc::BooleanEvent m_InvertedEvent;
         frc::BooleanEvent m_RisingEvent;
         frc::BooleanEvent m_FallingEvent;
-        
         
 };
