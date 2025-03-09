@@ -16,7 +16,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/smartdashboard/SendableChooser.h>
 
-#include "Utils/Widgets/CommandDashboardButton.h"
+#include "Utils/Widgets/DashboardButton.h"
 
 namespace Widgets{
     class DashboardOrchestra : public ctre::phoenix6::Orchestra {
@@ -28,8 +28,8 @@ namespace Widgets{
             void InitDashboardInterface();
 
         private:
-            CommandDashboardButton m_PausePlay;
-            CommandDashboardButton m_StopTrack;
+            DashboardButton m_PausePlay;
+            DashboardButton m_StopTrack;
             frc::SendableChooser<std::filesystem::path> m_TrackSelector;
     };
 }
