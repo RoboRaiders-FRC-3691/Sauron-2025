@@ -67,9 +67,8 @@ namespace ElevatorConstants{
     // Variable to store the CAN bus used by the coral subsystem
     static constexpr std::string_view kElevatorCANLoop = "*"; // Note: for ctre star is "any CANivore seen by the program"
 
-    // Elevator motor ports
-    static constexpr int kElevatorMotorRightPort = 12;
-    static constexpr int kElevatorMotorLeftPort = 15;
+    static constexpr int kElevatorMotorRightPort = 3; 
+    static constexpr int kElevatorMotorLeftPort = 4;  
 
     // Elevator motor configs
     static constexpr ctre::phoenix6::configs::TalonFXConfiguration kElevatorMotorConfigs = ctre::phoenix6::configs::TalonFXConfiguration{}
@@ -101,11 +100,10 @@ namespace CoralConstants{
     // Variable to store the CAN bus used by the coral subsystem
     static constexpr std::string_view kCoralCANLoop = ""; // Note: for ctre empty quotes is "RoboRIO"
 
-    // Coral motor ports
-    static constexpr int kCoralAngleMotorPort = 21;
-    static constexpr int kCoralIntakeMotorPort = 22;
+    static constexpr int kCoralAngleMotorPort = 12; 
+    static constexpr int kCoralIntakeMotorPort = 13;  
 
-    static constexpr int kCoralCANdiPort = 23;
+    static constexpr int kCoralCANdiPort = 23;  
 
     // Coral angle motor configs
     static constexpr ctre::phoenix6::configs::TalonFXConfiguration kCoralAngleConfigs = ctre::phoenix6::configs::TalonFXConfiguration{}
@@ -179,9 +177,8 @@ namespace AlgaeConstants{
     // Variable to store the CAN bus used by the coral subsystem
     static constexpr std::string_view kAlgaeCANLoop = ""; // Note: for ctre empty quotes is "RoboRIO"
 
-    // Algae motor ports
-    static constexpr int kAlgaeAngleMotorPort = 24; 
-    static constexpr int kAlgaeIntakeMotorPort = 25; 
+    static constexpr int kAlgaeAngleMotorPort = 11; 
+    static constexpr int kAlgaeIntakeMotorPort = 7;  
 
     // Algae angle motor configs
     static constexpr ctre::phoenix6::configs::TalonFXConfiguration kAlgaeAngleConfigs = ctre::phoenix6::configs::TalonFXConfiguration{}
@@ -251,8 +248,7 @@ namespace ClimberConstants{
     // Variable to store the CAN bus used by the climber subsystem
     static constexpr std::string_view kClimberCANLoop = "*"; // Note: for ctre star is "any CANivore seen by the program"
 
-    // Climber motor port
-    static constexpr int kClimberMotorPort = 31;
+    static constexpr int kClimberMotorPort = 10; 
 
     // Climber motor configs (sensor to mechanism ratio currently wrong at 1:1)
     static constexpr ctre::phoenix6::configs::TalonFXConfiguration kClimberMotorConfigs = ctre::phoenix6::configs::TalonFXConfiguration{}
