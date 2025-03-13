@@ -5,6 +5,7 @@
 AddressableRGB::DynamicLighting::DynamicLighting(int port, int length) : frc::AddressableLED(port){
     frc::AddressableLED::SetLength(length);
     m_LEDBuffer.resize(length);
+    frc::AddressableLED::Start();
 }
 
 frc2::CommandPtr AddressableRGB::DynamicLighting::SetEffect(frc::LEDPattern effect, bool loopingEffect){
