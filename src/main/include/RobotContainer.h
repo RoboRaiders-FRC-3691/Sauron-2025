@@ -13,6 +13,7 @@
 #include "subsystems/CommandSwerveDrivetrain.h"
 #include "Utils/Widgets/SwerveWidget.h"
 #include "Utils/Widgets/DashboardOrchestra.h"
+#include "Utils/AddressableRGB/DynamicLighting.h"
 
 #include <frc/smartdashboard/SendableChooser.h>
 
@@ -68,4 +69,9 @@ private:
     void PathPlannerSetUp();
     
     frc::SendableChooser<frc2::Command*> autoChooser;
+
+    // RGB testing
+    void TestingLights();
+
+    AddressableRGB::DynamicLighting m_lightTesting;
 };
