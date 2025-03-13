@@ -18,8 +18,7 @@
 
 class SwerveWidget : public nt::NTSendable, public wpi::SendableHelper<SwerveWidget> {
     public:
-        //using Entry = size_t; probably not needed remove if functioning without
-
+        // SwerveWidget constructor
         SwerveWidget();
 
         SwerveWidget(SwerveWidget&& rhs);
@@ -27,12 +26,17 @@ class SwerveWidget : public nt::NTSendable, public wpi::SendableHelper<SwerveWid
 
         void InitSendable(nt::NTSendableBuilder& builder) override;
 
+        // Update the swerve widget stored drive state
         void Update(ctre::phoenix6::swerve::impl::SwerveDrivetrainImpl::SwerveDriveState swerveState);
 
+        // Update the swerve widget stored drive state
         void Update(wpi::array<frc::SwerveModuleState, 4U> moduleStates, frc::Rotation2d robotHeading);
 
-    private:        
+    private:
+        // Define widget network table
         std::shared_ptr<nt::NetworkTable> m_table;
+
+        // Define cached swerve state
         wpi::array<frc::SwerveModuleState, 4U> m_moduleStates = {frc::SwerveModuleState(), frc::SwerveModuleState(), frc::SwerveModuleState(), frc::SwerveModuleState()};
         frc::Rotation2d m_robotAngle;
 

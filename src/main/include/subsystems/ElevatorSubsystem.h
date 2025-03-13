@@ -17,36 +17,40 @@
 
 class ElevatorSubsystem : public frc2::SubsystemBase {
     public:
-        //ElevatorSubsystem constructor
+        // ElevatorSubsystem constructor
         ElevatorSubsystem();
 
+        // Periodic Method called periodically by the CommandScheduler
         void Periodic() override;
 
-        //Converts a number of rotations into a height for the elevator
+        // Converts a number of rotations into a height for the elevator
         units::inch_t RotationsToHeight(units::turn_t turns);
 
-        //Converts a height into a number of rotations for the elevator motor
+        // Converts a height into a number of rotations for the elevator motor
         units::turn_t HeightToRotations(units::inch_t height);
 
-        //Sets elevator height
+        // Returns a command that sets the elevator height
         frc2::CommandPtr SetHeight(units::inch_t height);
 
-        //Gets elevator height
+        // Returns the current elevator height
         units::inch_t GetHeight();
 
-        //Checks if a given height is within the limits of the elevator
+        // Checks if a given height is within the limits of the elevator
+        // Returns true when valid and false when invalid
         bool ValidHeight(units::inch_t height);
 
-        //Returns a refrence to the elevator right motor
+        // Returns a refrence to the elevator right motor
         ctre::phoenix6::hardware::TalonFX& GetRightMotor();
 
-        //Returns a refrence to the elevator left motor
+        // Returns a refrence to the elevator left motor
         ctre::phoenix6::hardware::TalonFX& GetLeftMotor();
 
     private:
-        //Declare the elevator motors
+        // Declare the elevator motors
         ctre::phoenix6::hardware::TalonFX RightMotor;
         ctre::phoenix6::hardware::TalonFX LeftMotor;
+
+        // Declare motion magic request
         ctre::phoenix6::controls::MotionMagicVoltage m_PoseRequest;
 
 };

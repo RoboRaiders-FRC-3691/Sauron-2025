@@ -13,11 +13,17 @@
 
 class PhotonCamEstimator : public photon::PhotonCamera, public photon::PhotonPoseEstimator {
     public:
+        // PhotonCamEstimator constructor
         PhotonCamEstimator(std::string name, frc::AprilTagFieldLayout aprilTags, photon::PoseStrategy poseStrategy, frc::Transform3d robotToCam);
 
+        // Updates PhotonCamEstimator
+        // Returns a std::vector of std::optional EstimatedRobotPoses
         std::vector <std::optional<photon::EstimatedRobotPose>> Update();
 
     private:
+        // Define std::vector to hold camera restults
         std::vector <photon::PhotonPipelineResult> m_results;
+
+        // Define std::vector to hold the current estimated robot positions
         std::vector <std::optional<photon::EstimatedRobotPose>> m_robotPositions;
 };

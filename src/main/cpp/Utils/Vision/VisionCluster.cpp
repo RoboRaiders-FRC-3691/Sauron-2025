@@ -27,7 +27,6 @@ std::vector<VisionPoseResult> VisionCluster::GetVisionEstimates(){
     return m_visionEst;  
 }
 
-//Takes an estimated robot pose and filters it returning a vision pose result containing the position, and the position std devs
 std::optional<VisionPoseResult> VisionCluster::FilterVisionEstimate(std::optional<photon::EstimatedRobotPose> estimatedPosition){
     //Check if the std::optional has a value
     if(estimatedPosition.has_value()){

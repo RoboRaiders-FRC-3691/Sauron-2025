@@ -72,7 +72,6 @@ void RobotContainer::ConfigureBindings()
     m_MacroPad.GetKey(1, 1).OnTrue(m_Climber.SetAngle(-700_tr));
     m_MacroPad.GetKey(2, 1).OnTrue(m_Climber.SetAngle(-340_tr));
     m_MacroPad.GetKey(3, 1).OnTrue(m_Climber.SetAngle(-10_tr));
-
 }
 
 void RobotContainer::OrchestraSetUp(){
