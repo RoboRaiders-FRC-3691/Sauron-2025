@@ -141,7 +141,7 @@ namespace CoralConstants{
             .WithInverted(ctre::phoenix6::signals::InvertedValue::CounterClockwise_Positive)
         )
         .WithExternalFeedback(ctre::phoenix6::configs::ExternalFeedbackConfigs{}
-            .WithSensorToMechanismRatio(9)  
+            .WithSensorToMechanismRatio(1)  
         );
 
     static constexpr units::turn_t kLowerLimit = 0_tr;
@@ -155,11 +155,11 @@ namespace CoralConstants{
         );
     
     //Arrays for the coral placement heights, and the coral placement angles. Index = Level - 1. (e.g. L1 = [0])
-    static constexpr wpi::array<units::length::inch_t, 4U> kCoralPlacementHeights = {2.5_in, 17_in, 28_in, 48.875_in};
-    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementCoralAngles = {0.01_tr, 0.04_tr, .07_tr, .10_tr};//{0.06_tr, 0.09_tr, .12_tr, .15_tr};
-    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementAlgaeAngles = {.04_tr, .04_tr, .04_tr, .04_tr};
+    static constexpr wpi::array<units::length::inch_t, 4U> kCoralPlacementHeights = {0.75_in, 11_in, 25_in, 48.875_in}; //{2.5_in, 17_in, 28_in, 48.875_in}
+    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementCoralAngles = {0.01_tr, 0.054_tr, .084_tr, .10_tr};//{0.06_tr, 0.09_tr, .12_tr, .15_tr}; //{0.01_tr, 0.04_tr, .07_tr, .10_tr}
+    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementAlgaeAngles = {0_tr, 0_tr, 0_tr, 0_tr}; //0.4 before 3/8/2025
     
-    static constexpr units::angular_velocity::revolutions_per_minute_t kCoralPlacementVelocity = -1000_rpm;
+    static constexpr units::angular_velocity::revolutions_per_minute_t kCoralPlacementVelocity = -750_rpm;
     static constexpr units::time::second_t kCoralPlacementTime = 3_s;
 }
 

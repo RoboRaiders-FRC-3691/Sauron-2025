@@ -3,7 +3,7 @@
 using namespace VisionConstants;
 
 VisionCluster::VisionCluster(){
-    std::filesystem::path cameraPath = frc::filesystem::GetDeployDirectory().append("\\PhotonCameras\\");
+    std::filesystem::path cameraPath = frc::filesystem::GetDeployDirectory().append("/PhotonCameras/");
     m_photonCameras = JsonCamera::LoadCamerasFromFolder(cameraPath, frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::kDefaultField));
 }
 

@@ -64,7 +64,7 @@ units::turn_t CoralSubsystem::GetAngle(){
     return AngleMotor.GetPosition().GetValue();
 }
 
-//Checks if a given coral mehanism angle is within the mechanism limits
+//Checks if a given coral mehanism angle is within the mechanism limits *DOES NOT account for if will collid with algae arm*
 bool CoralSubsystem::ValidAngle(units::degree_t angle){
     if(angle > kUpperLimit || angle < kLowerLimit){
         return false;

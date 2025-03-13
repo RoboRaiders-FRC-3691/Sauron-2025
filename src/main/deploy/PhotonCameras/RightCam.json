@@ -1,0 +1,15 @@
+{
+    "CameraName": "Arducam_OV9281_Team_3691_Cam_1", 
+    "PoseStrategy": "MULTI_TAG_PNP_ON_COPROCESSOR",
+
+    "PositionOffset": {
+        "X": 5.5,
+        "Y": -11.375,
+        "Z": 28,
+
+        "Pitch": 0,
+        "Roll": 0,
+        "Yaw": 0
+    }
+
+}

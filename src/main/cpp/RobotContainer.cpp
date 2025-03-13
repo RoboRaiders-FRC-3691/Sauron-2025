@@ -6,7 +6,7 @@
 
 #include <frc2/command/Commands.h>
 
-RobotContainer::RobotContainer() : m_DashOrchestra(frc::filesystem::GetDeployDirectory().append("\\Music\\"))
+RobotContainer::RobotContainer() : m_DashOrchestra(frc::filesystem::GetDeployDirectory().append("/Music/"))
 {
     ConfigureBindings();
 
@@ -40,14 +40,14 @@ void RobotContainer::ConfigureBindings()
     (m_XboxController.Start() && m_XboxController.Y()).WhileTrue(drivetrain.SysIdQuasistatic(frc2::sysid::Direction::kForward));
     (m_XboxController.Start() && m_XboxController.X()).WhileTrue(drivetrain.SysIdQuasistatic(frc2::sysid::Direction::kReverse));
 
-    // reset the field-centric heading on Y button press
+    // reset the field-centric heading on Y button press (causes diver disorientation if used fequrnly)
     //m_XboxController.Y().OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
 
     drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
 
 
-    m_XboxController.RightTrigger().WhileTrue(m_Algae.RunIntake(2000_rpm));
-    m_XboxController.LeftTrigger().WhileTrue(m_Algae.RunIntake(-2000_rpm));
+    m_XboxController.RightTrigger().WhileTrue(m_Algae.RunIntake(3000_rpm));
+    m_XboxController.LeftTrigger().WhileTrue(m_Algae.RunIntake(-3000_rpm));
 
 
     m_MacroPad.GetKey(4,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 0));
