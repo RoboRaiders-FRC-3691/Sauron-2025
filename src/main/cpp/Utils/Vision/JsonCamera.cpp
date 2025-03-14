@@ -22,6 +22,8 @@ std::unordered_map <std::string, photon::PoseStrategy> strategyMap = {{"AVERAGE_
     //Grab the json file data from the filestream
     jsonFile = wpi::json::parse(camStream);
 
+   camStream.close();
+
     wpi::json cameraPositionJson = jsonFile.at("PositionOffset");
     // //load the transform 3d for the camera from the json file. (Assume that length units are in inches and rotational units are in degrees)
     frc::Transform3d cameraOffset = frc::Transform3d(units::length::inch_t(cameraPositionJson.at("X")),
