@@ -6,15 +6,13 @@
 
 #include <frc2/command/Commands.h>
 
-RobotContainer::RobotContainer() : m_DashOrchestra(frc::filesystem::GetDeployDirectory().append("/Music/")), m_lightTesting(0, 100)
+RobotContainer::RobotContainer() : m_DashOrchestra(frc::filesystem::GetDeployDirectory().append("/Music/"))
 {
     ConfigureBindings();
 
     OrchestraSetUp();
 
     PathPlannerSetUp();
-
-    TestingLights();
 }
 
 void RobotContainer::ConfigureBindings()
@@ -113,8 +111,4 @@ void RobotContainer::PathPlannerSetUp(){
 frc2::Command* RobotContainer::GetAutonomousCommand(){
     //Grab the selected autoChooser option
     return autoChooser.GetSelected();
-}
-
-void RobotContainer::TestingLights(){
-    m_lightTesting.SetEffect(frc::LEDPattern::Solid(frc::Color::kBlue), false);
 }

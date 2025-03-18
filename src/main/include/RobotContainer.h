@@ -70,8 +70,4 @@ private:
     
     frc::SendableChooser<frc2::Command*> autoChooser;
 
-    // RGB testing
-    void TestingLights();
-
-    AddressableRGB::DynamicLighting m_lightTesting;
 };
