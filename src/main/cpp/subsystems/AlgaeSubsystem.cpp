@@ -12,7 +12,6 @@ void AlgaeSubsystem::Periodic(){
 
 }
 
-//Command that sets the algae mechanism angle
 frc2::CommandPtr AlgaeSubsystem::SetAngle(units::angle::turn_t angle){
     return RunOnce([this, angle] {
         if(ValidAngle(angle)){
@@ -21,14 +20,12 @@ frc2::CommandPtr AlgaeSubsystem::SetAngle(units::angle::turn_t angle){
   });
 }
 
-//Command that sets the intake velocity to a given value
 frc2::CommandPtr AlgaeSubsystem::SetIntake(units::angular_velocity::revolutions_per_minute_t intakeVelocity){
     return RunOnce([this, intakeVelocity]{
         IntakeMotor.SetControl(m_VelRequest.WithVelocity(intakeVelocity));
   });
 }
 
-//Command that runs the intake at intakeVelocity until interupted
 frc2::CommandPtr AlgaeSubsystem::RunIntake(units::angular_velocity::revolutions_per_minute_t intakeVelocity){
     return StartEnd(
             [this, intakeVelocity]{
@@ -40,20 +37,27 @@ frc2::CommandPtr AlgaeSubsystem::RunIntake(units::angular_velocity::revolutions_
 }
 
 
-//Comnmand that runs the intake at intakeVelocity for "timeout" seconds when called
+
 frc2::CommandPtr AlgaeSubsystem::RunIntakeFor(units::angular_velocity::revolutions_per_minute_t intakeVelocity, units::time::second_t timeout){
     return RunIntake(intakeVelocity).WithTimeout(timeout);
 }
 
-//Returns the angle of the algae mechanism
+
 units::turn_t AlgaeSubsystem::GetAngle(){
     return AngleMotor.GetPosition().GetValue();
 }
 
-//Checks if a given algae mehanism angle is within the mechanism limits
 bool AlgaeSubsystem::ValidAngle(units::degree_t angle){
     if(angle > kUpperLimit || angle < kLowerLimit){
         return false;
     }
     return true;
+}
+
+ctre::phoenix6::hardware::TalonFX& AlgaeSubsystem::GetAngleMotor(){
+    return AngleMotor;
+}
+
+ctre::phoenix6::hardware::TalonFXS& AlgaeSubsystem::GetIntakeMotor(){
+    return IntakeMotor;
 }

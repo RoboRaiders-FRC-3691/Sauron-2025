@@ -14,17 +14,18 @@ std::unordered_map <std::string, photon::PoseStrategy> strategyMap = {{"AVERAGE_
 //Takes a filepath to a json file (including file extension) & returns a PhotonCamEstimator object for the camera described in the file.
  PhotonCamEstimator JsonCamera::LoadCameraFromFile(std::filesystem::path filepath, frc::AprilTagFieldLayout aprilTags){
     //Create a filestream
-    std::fstream camStream(filepath);
+    std::ifstream camStream(filepath);
 
     //Create a json object
     wpi::json jsonFile;
 
     //Grab the json file data from the filestream
-    camStream >> jsonFile;
+    jsonFile = wpi::json::parse(camStream);
 
+   camStream.close();
 
     wpi::json cameraPositionJson = jsonFile.at("PositionOffset");
-    //load the transform 3d for the camera from the json file. (Assume that length units are in inches and rotational units are in degrees)
+    // //load the transform 3d for the camera from the json file. (Assume that length units are in inches and rotational units are in degrees)
     frc::Transform3d cameraOffset = frc::Transform3d(units::length::inch_t(cameraPositionJson.at("X")),
                                                      units::length::inch_t(cameraPositionJson.at("Y")),
                                                      units::length::inch_t(cameraPositionJson.at("Z")),
@@ -33,7 +34,6 @@ std::unordered_map <std::string, photon::PoseStrategy> strategyMap = {{"AVERAGE_
                                                     units::angle::degree_t(cameraPositionJson.at("Yaw"))));                 
 
     return PhotonCamEstimator(jsonFile.at("CameraName"), aprilTags, strategyMap[jsonFile.at("PoseStrategy")], cameraOffset);
-    
 }
 
 std::vector<PhotonCamEstimator> JsonCamera::LoadCamerasFromFolder(std::filesystem::path directoryPath, frc::AprilTagFieldLayout aprilTags){

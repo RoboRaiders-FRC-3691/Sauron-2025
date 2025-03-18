@@ -19,6 +19,9 @@
 
 #include "Utils/Vision/VisionCluster.h"
 
+#include <frc/smartdashboard/SmartDashboard.h>
+#include "Utils/Widgets/SwerveWidget.h"
+
 using namespace ctre::phoenix6;
 
 namespace subsystems {
@@ -38,6 +41,9 @@ class CommandSwerveDrivetrain : public frc2::SubsystemBase, public TunerSwerveDr
     static constexpr frc::Rotation2d kRedAlliancePerspectiveRotation{180_deg};
     /* Keep track if we've ever applied the operator perspective before or not */
     bool m_hasAppliedOperatorPerspective = false;
+
+    /** Swerve request to apply during robot-centric path following */
+    swerve::requests::ApplyRobotSpeeds m_pathApplyRobotSpeeds;
 
     /* Swerve requests to apply during SysId characterization */
     swerve::requests::SysIdSwerveTranslation m_translationCharacterization;
@@ -134,6 +140,7 @@ public:
         if (utils::IsSimulation()) {
             StartSimThread();
         }
+        DrivetrainInit();
     }
 
     /**
@@ -160,6 +167,7 @@ public:
         if (utils::IsSimulation()) {
             StartSimThread();
         }
+        DrivetrainInit();
     }
 
     /**
@@ -193,7 +201,14 @@ public:
         if (utils::IsSimulation()) {
             StartSimThread();
         }
+        DrivetrainInit();
     }
+
+    // Implemented by Team 3691
+    // Initialize function that runs regardless of which template constructor is used
+    void DrivetrainInit();
+
+
 
     /**
      * \brief Returns a command that applies the specified control request to this swerve drivetrain.
@@ -296,14 +311,11 @@ public:
 private:
     void StartSimThread();
 
-    swerve::requests::ApplyRobotSpeeds m_AutoRequest = swerve::requests::ApplyRobotSpeeds{}
-        .WithDriveRequestType(swerve::impl::DriveRequestType::OpenLoopVoltage);
-
     VisionCluster m_visionCluster;
     std::vector<VisionPoseResult> m_visionResults;
-    
-//public:
-    //ctre::phoenix6::Orchestra
+
+    SwerveWidget m_swerveWidget;
+
 };
 
 }

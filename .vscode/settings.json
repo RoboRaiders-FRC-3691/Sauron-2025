@@ -98,6 +98,21 @@
     "xmemory": "cpp",
     "xtr1common": "cpp",
     "xutility": "cpp",
-    "xstring": "cpp"
+    "xstring": "cpp",
+    "xtree": "cpp",
+    "filesystem": "cpp",
+    "format": "cpp",
+    "locale": "cpp",
+    "xfacet": "cpp",
+    "xhash": "cpp",
+    "xiosbase": "cpp",
+    "xlocale": "cpp",
+    "xlocbuf": "cpp",
+    "xlocinfo": "cpp",
+    "xlocmes": "cpp",
+    "xlocmon": "cpp",
+    "xlocnum": "cpp",
+    "xloctime": "cpp",
+    "stack": "cpp"
   }
 }
