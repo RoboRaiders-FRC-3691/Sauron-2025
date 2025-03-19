@@ -100,8 +100,10 @@ void RobotContainer::PathPlannerSetUp(){
     
     drivetrain.ConfigurePathPlanner();
 
+    pathplanner::NamedCommands::registerCommand("Align Coral L4", ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 3));
+
+
     //Add Options to the sendable chooser
-    //Default: No auto with value of int -1
     autoChooser = pathplanner::AutoBuilder::buildAutoChooser();
 
     frc::SmartDashboard::PutData("Auto Selector", &autoChooser);

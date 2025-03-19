@@ -18,6 +18,7 @@
 #include <frc/smartdashboard/SendableChooser.h>
 
 #include <pathplanner/lib/commands/PathPlannerAuto.h>
+#include <pathplanner/lib/auto/NamedCommands.h>
 
 #include "generated/TunerConstants.h"
 #include "Telemetry.h"
