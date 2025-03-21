@@ -267,11 +267,15 @@ namespace ClimberConstants{
             .WithMotionMagicCruiseVelocity(80_tps)
             .WithMotionMagicAcceleration(160_tr_per_s_sq)
             .WithMotionMagicJerk(1600_tr_per_s_cu)
+        )
+        .WithFeedback(ctre::phoenix6::configs::FeedbackConfigs{}
+            .WithSensorToMechanismRatio(125)
         );
+
 
     // Climber angle upper and lower limits
     // Currently limits are conservative
-    static constexpr units::angle::turn_t kLowerLimit = -700_tr;
-    static constexpr units::angle::turn_t kUpperLimit = 0_tr;
+    static constexpr units::angle::turn_t kLowerLimit = -10_tr;
+    static constexpr units::angle::turn_t kUpperLimit = 10_tr;
 
 }
