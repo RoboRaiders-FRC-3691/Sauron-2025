@@ -4,7 +4,13 @@
 
 #pragma once
 
+#include <map>
+
 #include <wpi/array.h>
+
+#include <frc/geometry/Pose2d.h>
+#include <frc/geometry/Translation2d.h>
+#include <frc/geometry/Rotation2d.h>
 
 #include <units/length.h>
 #include <units/angle.h>
@@ -278,4 +284,21 @@ namespace ClimberConstants{
     static constexpr units::angle::turn_t kLowerLimit = -10_tr;
     static constexpr units::angle::turn_t kUpperLimit = 10_tr;
 
+}
+
+namespace AutoConstants{
+    static const std::map<char, frc::Pose2d> kReefPositions{
+    {'A', frc::Pose2d(frc::Translation2d(212_in, 202_in), frc::Rotation2d(-120_deg))},
+    {'B', frc::Pose2d(frc::Translation2d(0_in, 0_in), frc::Rotation2d(0_deg))},
+    {'C', frc::Pose2d(frc::Translation2d(0_in, 0_in), frc::Rotation2d(0_deg))},
+    {'D', frc::Pose2d(frc::Translation2d(0_in, 0_in), frc::Rotation2d(0_deg))},
+    {'E', frc::Pose2d(frc::Translation2d(0_in, 0_in), frc::Rotation2d(0_deg))},
+    {'F', frc::Pose2d(frc::Translation2d(0_in, 0_in), frc::Rotation2d(0_deg))},
+    {'G', frc::Pose2d(frc::Translation2d(0_in, 0_in), frc::Rotation2d(0_deg))},
+    {'H', frc::Pose2d(frc::Translation2d(0_in, 0_in), frc::Rotation2d(0_deg))},
+    {'I', frc::Pose2d(frc::Translation2d(0_in, 0_in), frc::Rotation2d(0_deg))},
+    {'J', frc::Pose2d(frc::Translation2d(0_in, 0_in), frc::Rotation2d(0_deg))},
+    {'K', frc::Pose2d(frc::Translation2d(0_in, 0_in), frc::Rotation2d(0_deg))},
+    {'L', frc::Pose2d(frc::Translation2d(0_in, 0_in), frc::Rotation2d(0_deg))}
+};
 }
