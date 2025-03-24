@@ -17,6 +17,8 @@
 
 #include "generated/TunerConstants.h"
 
+#include "Constants.h"
+
 #include "Utils/Vision/VisionCluster.h"
 
 #include <frc/smartdashboard/SmartDashboard.h>
@@ -304,9 +306,16 @@ public:
         TunerSwerveDrivetrain::AddVisionMeasurement(std::move(visionRobotPose), utils::FPGAToCurrentTime(timestamp), visionMeasurementStdDevs);
     }
 
+    // Implemented by Team 3691
+    // Configures Pathplanner (Currently uses defult configs)
     void ConfigurePathPlanner();
 
+    // Implemented by Team 3691
+    // Adds vision cluseter measurements to the odometry
     void AddClusterVisionMeasurments();
+
+    // Implemented by Team 3691 returns a Command for lining the drivetrain up automatically to the reef
+    frc2::CommandPtr ReefLineUp(char reefPose);
 
 private:
     void StartSimThread();

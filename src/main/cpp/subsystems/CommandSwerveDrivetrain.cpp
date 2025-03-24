@@ -100,3 +100,33 @@ void CommandSwerveDrivetrain::AddClusterVisionMeasurments(){
     }
 }
 
+
+frc2::CommandPtr CommandSwerveDrivetrain::ReefLineUp(char reefPose){
+    
+
+    pathplanner::PathConstraints constraints = pathplanner::PathConstraints(
+        3.0_mps, 3.0_mps_sq,
+        540_deg_per_s, 720_deg_per_s_sq);
+
+
+    auto alliance = frc::DriverStation::GetAlliance();
+            if (!alliance) {
+                return frc2::cmd::Print("Error alliance not found while performing Reef line up.");
+            }
+
+            if(alliance.value() == frc::DriverStation::Alliance::kBlue){
+                return pathplanner::AutoBuilder::pathfindToPose(
+                    AutoConstants::kReefPositions.at(reefPose),
+                    constraints,
+                    0_fps
+                );
+            }
+            else{
+                return pathplanner::AutoBuilder::pathfindToPoseFlipped(
+                    AutoConstants::kReefPositions.at(reefPose),
+                    constraints,
+                    0_fps
+                );
+            }
+            
+}
