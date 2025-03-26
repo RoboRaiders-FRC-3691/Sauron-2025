@@ -121,9 +121,13 @@ namespace CoralConstants{
             .WithKS(.45)
             .WithKV(.17)
             .WithKA(.01)
+
             .WithKP(5)
             .WithKI(0)
             .WithKD(.12)
+
+            .WithKG(0)
+            .WithGravityType(ctre::phoenix6::signals::GravityTypeValue::Arm_Cosine)
         )
         .WithMotionMagic(ctre::phoenix6::configs::MotionMagicConfigs{}
             .WithMotionMagicCruiseVelocity(80_tps)
@@ -132,7 +136,8 @@ namespace CoralConstants{
         )
         .WithFeedback(ctre::phoenix6::configs::FeedbackConfigs{}
             .WithSensorToMechanismRatio(9) 
-            .With
+            .WithFeedbackRemoteSensorID(kCoralCANCoderPort)
+            .WithFeedbackSensorSource(signals::FeedbackSensorSourceValue::RemoteCANcoder)
         );
 
     // Coral intake motor configs
@@ -141,6 +146,7 @@ namespace CoralConstants{
             .WithKS(.45)
             .WithKV(.08)
             .WithKA(.01)
+
             .WithKP(.25)
             .WithKI(0)
             .WithKD(.015)
@@ -163,13 +169,13 @@ namespace CoralConstants{
     // Coral CANCoder config
     static constexpr ctre::phoenix6::configs::CANcoderConfiguration kCoralCANCoderConfigs = ctre::phoenix6::configs::CANcoderConfiguration{}
         .WithMagnetSensor(ctre::phoenix6::configs::MagnetSensorConfigs{}
-            .WithMagnetOffset(.114502_tr)
+            .WithMagnetOffset(-.114502_tr)
         );
 
     // Coral angle upper and lower limits
     // Currently defined as 0 and 1000 as coral limits are not yet defined
-    static constexpr units::turn_t kLowerLimit = 0_tr; 
-    static constexpr units::turn_t kUpperLimit = 1000_tr;
+    static constexpr units::turn_t kLowerLimit = -.3_tr; 
+    static constexpr units::turn_t kUpperLimit = .3_tr;
 
     // Coral CANdi configs
     static constexpr ctre::phoenix6::configs::CANdiConfiguration kCoralCANdiConfig = ctre::phoenix6::configs::CANdiConfiguration{}
@@ -183,7 +189,8 @@ namespace CoralConstants{
     static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementCoralAngles = {0.01_tr, 0.04_tr, .07_tr, .10_tr};//{0.06_tr, 0.09_tr, .12_tr, .15_tr};
     static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementAlgaeAngles = {.04_tr, .04_tr, .04_tr, .04_tr};
     
-    static constexpr units::angular_velocity::revolutions_per_minute_t kCoralPlacementVelocity = -1000_rpm;
+    static constexpr units::angle::turn_t kCoralIntakeAngle = .25_tr;
+    static constexpr units::angular_velocity::revolutions_per_minute_t kCoralIntakeVelocity = 3000_rpm;
     static constexpr units::time::second_t kCoralPlacementTime = 3_s;
 }
 
@@ -203,11 +210,12 @@ namespace AlgaeConstants{
             .WithKS(.25)
             .WithKV(.20)
             .WithKA(.015)
-            .WithKG(.3)
             
             .WithKP(8.5)
             .WithKI(0)
             .WithKD(.25)
+
+            .WithKG(.3)
             .WithGravityType(ctre::phoenix6::signals::GravityTypeValue::Arm_Cosine)
         )
         .WithMotionMagic(ctre::phoenix6::configs::MotionMagicConfigs{}
@@ -217,6 +225,8 @@ namespace AlgaeConstants{
         )
         .WithFeedback(ctre::phoenix6::configs::FeedbackConfigs{}
             .WithSensorToMechanismRatio(36)
+            .WithFeedbackRemoteSensorID(kAlgaeCANCoderPort)
+            .WithFeedbackSensorSource(signals::FeedbackSensorSourceValue::RemoteCANcoder)
         );
 
     // Algae intake motor configs
@@ -225,6 +235,7 @@ namespace AlgaeConstants{
             .WithKS(.45)
             .WithKV(.08)
             .WithKA(.01)
+
             .WithKP(.25)
             .WithKI(0)
             .WithKD(.015)
@@ -250,8 +261,8 @@ namespace AlgaeConstants{
 
     // Algae angle upper and lower limits
     // Currently defined as -1000 and 1000 as algae limits are not yet defined
-    static constexpr units::turn_t kLowerLimit = -1000_tr;
-    static constexpr units::turn_t kUpperLimit = 1000_tr;
+    static constexpr units::turn_t kLowerLimit = -.3_tr;
+    static constexpr units::turn_t kUpperLimit = .3_tr;
     
     
     //Arrays for the algae removal heights, and the algae removal angles. Index = Level - 2. (e.g. L2 = [0]). Note: Algae is only removed from L2 and L3.
@@ -261,7 +272,7 @@ namespace AlgaeConstants{
 
     // Predifined removal velocity and time
     // Currently not used
-    static constexpr units::angular_velocity::revolutions_per_minute_t kAlgaeRemovalVelocity = 1000_rpm;
+    static constexpr units::angular_velocity::revolutions_per_minute_t kAlgaeIntakeVelocity = 3000_rpm;
     static constexpr units::time::second_t kAlgaeRemovalTime = 3_s;
 
 }
@@ -281,6 +292,7 @@ namespace ClimberConstants{
             .WithKS(.41)
             .WithKV(.12)
             .WithKA(.01)
+
             .WithKP(4.8)
             .WithKI(0)
             .WithKD(.1)
@@ -295,10 +307,15 @@ namespace ClimberConstants{
         );
 
 
+    static constexpr units::angle::turn_t kClimberDown = 3_tr;
+    static constexpr units::angle::turn_t kClimberUp = 10_tr;
+    
+
+
     // Climber angle upper and lower limits
     // Currently limits are conservative
-    static constexpr units::angle::turn_t kLowerLimit = -10_tr;
-    static constexpr units::angle::turn_t kUpperLimit = 10_tr;
+    static constexpr units::angle::turn_t kLowerLimit = 0_tr;
+    static constexpr units::angle::turn_t kUpperLimit = 15_tr;
 
 }
 

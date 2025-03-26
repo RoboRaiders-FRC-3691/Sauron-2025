@@ -46,10 +46,14 @@ void RobotContainer::ConfigureBindings()
     //m_XboxController.Y().OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
 
     drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
-
-
-    m_XboxController.RightTrigger().WhileTrue(m_Algae.RunIntake(3000_rpm));
-    m_XboxController.LeftTrigger().WhileTrue(m_Algae.RunIntake(-3000_rpm));
+    
+    // Coral controls
+    m_XboxController.RightBumper().WhileTrue(m_Coral.RunIntake(-1 * CoralConstants::kCoralIntakeVelocity));
+    m_XboxController.LeftBumper().WhileTrue(m_Coral.RunIntake(CoralConstants::kCoralIntakeVelocity));
+    
+    // Algae controls
+    m_XboxController.RightTrigger().WhileTrue(m_Algae.RunIntake(AlgaeConstants::kAlgaeIntakeVelocity));
+    m_XboxController.LeftTrigger().WhileTrue(m_Algae.RunIntake(-1 * AlgaeConstants::kAlgaeIntakeVelocity));
 
 
     m_MacroPad.GetKey(4,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 0));
@@ -60,45 +64,41 @@ void RobotContainer::ConfigureBindings()
     m_MacroPad.GetKey(1,2).OnTrue(ReefCommands::RemoveAlgaeAtLevel(m_Coral, m_Algae, m_elevator, 1));
     m_MacroPad.GetKey(2,2).OnTrue(ReefCommands::RemoveAlgaeAtLevel(m_Coral, m_Algae, m_elevator, 0));
 
-    //Coral controls
-    m_XboxController.RightBumper().WhileTrue(m_Coral.RunIntake(-3000_rpm));
-    m_XboxController.LeftBumper().WhileTrue(m_Coral.RunIntake(3000_rpm));
+    // Coral Intake Angle
+    m_XboxController.X().OnTrue(m_Coral.SetAngle(CoralConstants::kCoralIntakeAngle));
 
+    // Climber controls
+    m_MacroPad.GetKey(1, 1).OnTrue(m_Climber.SetAngle(ClimberConstants::kClimberUp));
+    m_MacroPad.GetKey(2, 1).OnTrue(m_Climber.SetAngle(ClimberConstants::kClimberDown));
+
+
+    // Debug/Testing controls (likely remove before Minneapolis)
     m_XboxController.B().OnTrue(m_Coral.SetAngle(.27_tr));
     m_XboxController.A().WhileTrue(m_elevator.SetHeight(5_in));
-
-    //Temp Test Coral Intake Angle
-    m_XboxController.X().OnTrue(m_Coral.SetAngle(.25_tr));
-
-    //Climber controls
-    m_MacroPad.GetKey(1, 1).OnTrue(m_Climber.SetAngle(-700_tr)); // Outdated climber angle
-    m_MacroPad.GetKey(2, 1).OnTrue(m_Climber.SetAngle(-340_tr)); // Outdated climber angle
-    m_MacroPad.GetKey(3, 1).OnTrue(m_Climber.SetAngle(-10_tr)); // Outdated climber angle
-
 
     // Testing pathfind to position
     (m_XboxController.Back() && m_XboxController.POVRight()).OnTrue(drivetrain.ReefLineUp('A'));
 }
 
 void RobotContainer::OrchestraSetUp(){
-    //Add all the swerve modules to the orchestra
+    // Add all the swerve modules to the orchestra
     for (auto& module : drivetrain.GetModules()){
         m_DashOrchestra.AddInstrument(module->GetDriveMotor());
         m_DashOrchestra.AddInstrument(module->GetSteerMotor());
     }
 
-    //Add the left and right elevator motors to the orchestra
+    // Add the left and right elevator motors to the orchestra
     m_DashOrchestra.AddInstrument(m_elevator.GetRightMotor());
     m_DashOrchestra.AddInstrument(m_elevator.GetLeftMotor());
 
-    //Add the Coral and Algae Talon FX (Angle Motors) to the orchestra
+    // Add the Coral and Algae Talon FX (Angle Motors) to the orchestra
     m_DashOrchestra.AddInstrument(m_Coral.GetAngleMotor());
     m_DashOrchestra.AddInstrument(m_Algae.GetAngleMotor());
 
-    //Add the Climber motor to the orchestra
+    // Add the Climber motor to the orchestra
     m_DashOrchestra.AddInstrument(m_Climber.GetClimbMotor());
 
-    //Start the orchestra dashboard interface
+    // Start the orchestra dashboard interface
     m_DashOrchestra.InitDashboardInterface();
 }
 
@@ -112,13 +112,13 @@ void RobotContainer::PathPlannerSetUp(){
     pathplanner::NamedCommands::registerCommand("Align Coral L3", ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 2));
     pathplanner::NamedCommands::registerCommand("Align Coral L4", ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 3));
 
-    pathplanner::NamedCommands::registerCommand("Coral Intake", m_Coral.RunIntakeFor(-3000_rpm, 10_s)); // Could be labled backwards (Intake <-> Dispense)
-    pathplanner::NamedCommands::registerCommand("Coral Dispense", m_Coral.RunIntakeFor(3000_rpm, 2_s));
+    pathplanner::NamedCommands::registerCommand("Coral Intake", m_Coral.RunIntakeFor((-1 * CoralConstants::kCoralIntakeVelocity), CoralConstants::kCoralPlacementTime)); // Could be labled backwards (Intake <-> Dispense)
+    pathplanner::NamedCommands::registerCommand("Coral Dispense", m_Coral.RunIntakeFor(CoralConstants::kCoralIntakeVelocity, CoralConstants::kCoralPlacementTime));
 
-    pathplanner::NamedCommands::registerCommand("Algae Intake", m_Algae.RunIntakeFor(3000_rpm, 1.5_s)); // Could be labled backwards (Intake <-> Dispense)
-    pathplanner::NamedCommands::registerCommand("Algae Dispense", m_Algae.RunIntakeFor(-3000_rpm, 2_s));
+    pathplanner::NamedCommands::registerCommand("Algae Intake", m_Algae.RunIntakeFor(AlgaeConstants::kAlgaeIntakeVelocity, AlgaeConstants::kAlgaeRemovalTime)); // Could be labled backwards (Intake <-> Dispense)
+    pathplanner::NamedCommands::registerCommand("Algae Dispense", m_Algae.RunIntakeFor((-1 * AlgaeConstants::kAlgaeIntakeVelocity), AlgaeConstants::kAlgaeRemovalTime));
 
-    //Add Options to the sendable chooser
+    // Add Options to the sendable chooser
     autoChooser = pathplanner::AutoBuilder::buildAutoChooser();
 
     frc::SmartDashboard::PutData("Auto Selector", &autoChooser);
@@ -126,6 +126,6 @@ void RobotContainer::PathPlannerSetUp(){
 
 
 frc2::Command* RobotContainer::GetAutonomousCommand(){
-    //Grab the selected autoChooser option
+    // Grab the selected autoChooser option
     return autoChooser.GetSelected();
 }
