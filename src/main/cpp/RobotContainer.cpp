@@ -8,11 +8,12 @@
 
 RobotContainer::RobotContainer() : m_DashOrchestra(frc::filesystem::GetDeployDirectory().append("/Music/"))
 {
-    ConfigureBindings();
-
-    OrchestraSetUp();
 
     PathPlannerSetUp();
+
+    OrchestraSetUp();
+    
+    ConfigureBindings();
 }
 
 void RobotContainer::ConfigureBindings()
@@ -28,6 +29,7 @@ void RobotContainer::ConfigureBindings()
         })
     );
 
+
     // m_XboxController.POVLeft().WhileTrue(drivetrain.ApplyRequest([this]() -> auto&& { return brake; }));
     // m_XboxController.POVRight().WhileTrue(drivetrain.ApplyRequest([this]() -> auto&& {
     //     return point.WithModuleDirection(frc::Rotation2d{-m_XboxController.GetLeftY(), -m_XboxController.GetLeftX()});
@@ -40,7 +42,7 @@ void RobotContainer::ConfigureBindings()
     (m_XboxController.Start() && m_XboxController.Y()).WhileTrue(drivetrain.SysIdQuasistatic(frc2::sysid::Direction::kForward));
     (m_XboxController.Start() && m_XboxController.X()).WhileTrue(drivetrain.SysIdQuasistatic(frc2::sysid::Direction::kReverse));
 
-    // reset the field-centric heading on Y button press (causes diver disorientation if used fequrnly)
+    // reset the field-centric heading on Y button press (causes diver disorientation if used fequntly)
     //m_XboxController.Y().OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
 
     drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
@@ -69,9 +71,13 @@ void RobotContainer::ConfigureBindings()
     m_XboxController.X().OnTrue(m_Coral.SetAngle(.25_tr));
 
     //Climber controls
-    m_MacroPad.GetKey(1, 1).OnTrue(m_Climber.SetAngle(-700_tr));
-    m_MacroPad.GetKey(2, 1).OnTrue(m_Climber.SetAngle(-340_tr));
-    m_MacroPad.GetKey(3, 1).OnTrue(m_Climber.SetAngle(-10_tr));
+    m_MacroPad.GetKey(1, 1).OnTrue(m_Climber.SetAngle(-700_tr)); // Outdated climber angle
+    m_MacroPad.GetKey(2, 1).OnTrue(m_Climber.SetAngle(-340_tr)); // Outdated climber angle
+    m_MacroPad.GetKey(3, 1).OnTrue(m_Climber.SetAngle(-10_tr)); // Outdated climber angle
+
+
+    // Testing pathfind to position
+    (m_XboxController.Back() && m_XboxController.POVRight()).OnTrue(drivetrain.ReefLineUp('A'));
 }
 
 void RobotContainer::OrchestraSetUp(){
@@ -100,8 +106,19 @@ void RobotContainer::PathPlannerSetUp(){
     
     drivetrain.ConfigurePathPlanner();
 
+    // Some preliminary Named Command Implementations
+    pathplanner::NamedCommands::registerCommand("Align Coral L1", ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 0));
+    pathplanner::NamedCommands::registerCommand("Align Coral L2", ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 1));
+    pathplanner::NamedCommands::registerCommand("Align Coral L3", ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 2));
+    pathplanner::NamedCommands::registerCommand("Align Coral L4", ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 3));
+
+    pathplanner::NamedCommands::registerCommand("Coral Intake", m_Coral.RunIntakeFor(3000_rpm, 10_s)); // Could be labled backwards (Intake <-> Dispense)
+    pathplanner::NamedCommands::registerCommand("Coral Dispense", m_Coral.RunIntakeFor(-3000_rpm, 2_s));
+
+    pathplanner::NamedCommands::registerCommand("Algae Intake", m_Algae.RunIntakeFor(3000_rpm, 1.5_s)); // Could be labled backwards (Intake <-> Dispense)
+    pathplanner::NamedCommands::registerCommand("Algae Dispense", m_Algae.RunIntakeFor(-3000_rpm, 2_s));
+
     //Add Options to the sendable chooser
-    //Default: No auto with value of int -1
     autoChooser = pathplanner::AutoBuilder::buildAutoChooser();
 
     frc::SmartDashboard::PutData("Auto Selector", &autoChooser);
