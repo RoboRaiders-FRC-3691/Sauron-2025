@@ -109,7 +109,8 @@ namespace CoralConstants{
 
     // Coral motor ports
     static constexpr int kCoralAngleMotorPort = 12; 
-    static constexpr int kCoralIntakeMotorPort = 13;  
+    static constexpr int kCoralIntakeMotorPort = 13;
+    static constexpr int kCoralCANCoderPort = 26;
 
     // Coral CANdi port
     static constexpr int kCoralCANdiPort = 23;  
@@ -131,6 +132,7 @@ namespace CoralConstants{
         )
         .WithFeedback(ctre::phoenix6::configs::FeedbackConfigs{}
             .WithSensorToMechanismRatio(9) 
+            .With
         );
 
     // Coral intake motor configs
@@ -156,6 +158,12 @@ namespace CoralConstants{
         )
         .WithExternalFeedback(ctre::phoenix6::configs::ExternalFeedbackConfigs{}
             .WithSensorToMechanismRatio(1)  
+        );
+
+    // Coral CANCoder config
+    static constexpr ctre::phoenix6::configs::CANcoderConfiguration kCoralCANCoderConfigs = ctre::phoenix6::configs::CANcoderConfiguration{}
+        .WithMagnetSensor(ctre::phoenix6::configs::MagnetSensorConfigs{}
+            .WithMagnetOffset(.114502_tr)
         );
 
     // Coral angle upper and lower limits
@@ -186,7 +194,8 @@ namespace AlgaeConstants{
 
     // Algae motor ports
     static constexpr int kAlgaeAngleMotorPort = 11; 
-    static constexpr int kAlgaeIntakeMotorPort = 7;  
+    static constexpr int kAlgaeIntakeMotorPort = 7;
+    static constexpr int kAlgaeCANCoderPort = 27;
 
     // Algae angle motor configs
     static constexpr ctre::phoenix6::configs::TalonFXConfiguration kAlgaeAngleConfigs = ctre::phoenix6::configs::TalonFXConfiguration{}
@@ -230,6 +239,13 @@ namespace AlgaeConstants{
         )
         .WithExternalFeedback(ctre::phoenix6::configs::ExternalFeedbackConfigs{}
             .WithSensorToMechanismRatio(16)  
+        );
+
+    // Algae CANCoder config
+    static constexpr ctre::phoenix6::configs::CANcoderConfiguration kAlgaeCANCoderConfigs = ctre::phoenix6::configs::CANcoderConfiguration{}
+        .WithMagnetSensor(ctre::phoenix6::configs::MagnetSensorConfigs{}
+            .WithMagnetOffset(.380699_tr)
+            .WithSensorDirection(ctre::phoenix6::signals::InvertedValue::Clockwise_Positive)
         );
 
     // Algae angle upper and lower limits
@@ -288,8 +304,8 @@ namespace ClimberConstants{
 
 namespace AutoConstants{
     static const std::map<char, frc::Pose2d> kReefPositions{
-    {'A', frc::Pose2d(frc::Translation2d(212_in, 202_in), frc::Rotation2d(-120_deg))},
-    {'B', frc::Pose2d(frc::Translation2d(0_in, 0_in), frc::Rotation2d(0_deg))},
+    {'A', frc::Pose2d(frc::Translation2d(110_in, 70_in), frc::Rotation2d(0_deg))},
+    {'B', frc::Pose2d(frc::Translation2d(212_in, 202_in), frc::Rotation2d(-120_deg))},
     {'C', frc::Pose2d(frc::Translation2d(0_in, 0_in), frc::Rotation2d(0_deg))},
     {'D', frc::Pose2d(frc::Translation2d(0_in, 0_in), frc::Rotation2d(0_deg))},
     {'E', frc::Pose2d(frc::Translation2d(0_in, 0_in), frc::Rotation2d(0_deg))},

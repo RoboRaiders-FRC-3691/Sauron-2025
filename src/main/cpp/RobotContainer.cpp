@@ -112,8 +112,8 @@ void RobotContainer::PathPlannerSetUp(){
     pathplanner::NamedCommands::registerCommand("Align Coral L3", ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 2));
     pathplanner::NamedCommands::registerCommand("Align Coral L4", ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 3));
 
-    pathplanner::NamedCommands::registerCommand("Coral Intake", m_Coral.RunIntakeFor(3000_rpm, 10_s)); // Could be labled backwards (Intake <-> Dispense)
-    pathplanner::NamedCommands::registerCommand("Coral Dispense", m_Coral.RunIntakeFor(-3000_rpm, 2_s));
+    pathplanner::NamedCommands::registerCommand("Coral Intake", m_Coral.RunIntakeFor(-3000_rpm, 10_s)); // Could be labled backwards (Intake <-> Dispense)
+    pathplanner::NamedCommands::registerCommand("Coral Dispense", m_Coral.RunIntakeFor(3000_rpm, 2_s));
 
     pathplanner::NamedCommands::registerCommand("Algae Intake", m_Algae.RunIntakeFor(3000_rpm, 1.5_s)); // Could be labled backwards (Intake <-> Dispense)
     pathplanner::NamedCommands::registerCommand("Algae Dispense", m_Algae.RunIntakeFor(-3000_rpm, 2_s));

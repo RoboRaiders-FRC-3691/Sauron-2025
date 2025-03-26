@@ -57,6 +57,8 @@ class AlgaeSubsystem : public frc2::SubsystemBase {
         ctre::phoenix6::hardware::TalonFX AngleMotor;
         ctre::phoenix6::hardware::TalonFXS IntakeMotor;
 
+        ctre::phoenix6::hardware::CANcoder CANCoder;
+
         // Declare motion magic requests
         ctre::phoenix6::controls::MotionMagicVoltage m_PoseRequest;
         ctre::phoenix6::controls::MotionMagicVelocityVoltage m_VelRequest;

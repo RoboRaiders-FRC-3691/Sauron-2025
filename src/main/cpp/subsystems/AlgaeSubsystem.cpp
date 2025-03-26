@@ -3,9 +3,10 @@
 
 using namespace AlgaeConstants;
 
-AlgaeSubsystem::AlgaeSubsystem() : AngleMotor{kAlgaeAngleMotorPort, kAlgaeCANLoop}, IntakeMotor{kAlgaeIntakeMotorPort, kAlgaeCANLoop}, m_PoseRequest(0_tr), m_VelRequest(0_rpm){
+AlgaeSubsystem::AlgaeSubsystem() : AngleMotor{kAlgaeAngleMotorPort, kAlgaeCANLoop}, IntakeMotor{kAlgaeIntakeMotorPort, kAlgaeCANLoop}, CANCoder{kAlgaeCANCoderPort, kAlgaeCANLoop}, m_PoseRequest(0_tr), m_VelRequest(0_rpm){
     AngleMotor.GetConfigurator().Apply(kAlgaeAngleConfigs);
     IntakeMotor.GetConfigurator().Apply(kAlgaeIntakeConfigs);
+    CANCoder.GetConfigurator().Apply(kAlgaeCANCoderConfigs);
 }
 
 void AlgaeSubsystem::Periodic(){

@@ -5,21 +5,27 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "TestPrint"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "TestPath 1"
+            "pathName": "Toward Driver Forward"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "Align Coral L4"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Coral Dispense"
           }
         }
       ]

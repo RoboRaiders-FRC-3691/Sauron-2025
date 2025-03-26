@@ -60,6 +60,8 @@ class CoralSubsystem : public frc2::SubsystemBase {
         ctre::phoenix6::hardware::TalonFX AngleMotor;
         ctre::phoenix6::hardware::TalonFXS IntakeMotor;
 
+        ctre::phoenix6::hardware::CANcoder CANCoder;
+
         // Declare coral CANdi
         ctre::phoenix6::hardware::CANdi CoralCANdi;
 

@@ -3,7 +3,7 @@
 
 using namespace CoralConstants;
 
-CoralSubsystem::CoralSubsystem() : AngleMotor{kCoralAngleMotorPort, kCoralCANLoop}, IntakeMotor{kCoralIntakeMotorPort, kCoralCANLoop}, CoralCANdi{kCoralCANdiPort, kCoralCANLoop}, m_PoseRequest(0_tr), m_VelRequest(0_rpm){
+CoralSubsystem::CoralSubsystem() : AngleMotor{kCoralAngleMotorPort, kCoralCANLoop}, IntakeMotor{kCoralIntakeMotorPort, kCoralCANLoop}, CANCoder{kCoralCANCoderPort, kCoralCANLoop}, CoralCANdi{kCoralCANdiPort, kCoralCANLoop}, m_PoseRequest(0_tr), m_VelRequest(0_rpm){
     AngleMotor.GetConfigurator().Apply(kCoralAngleConfigs);
     IntakeMotor.GetConfigurator().Apply(kCoralIntakeConfigs);
 }
