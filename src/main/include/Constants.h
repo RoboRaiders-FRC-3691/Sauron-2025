@@ -22,6 +22,7 @@
 #include "ctre/phoenix6/TalonFX.hpp"
 #include "ctre/phoenix6/TalonFXS.hpp"
 #include "ctre/phoenix6/CANdi.hpp"
+#include "ctre/phoenix6/CANcoder.hpp"
 
 #include "ctre/phoenix6/configs/Configurator.hpp"
 #include "ctre/phoenix6/configs/Configs.hpp"
@@ -137,7 +138,7 @@ namespace CoralConstants{
         .WithFeedback(ctre::phoenix6::configs::FeedbackConfigs{}
             .WithSensorToMechanismRatio(9) 
             .WithFeedbackRemoteSensorID(kCoralCANCoderPort)
-            .WithFeedbackSensorSource(signals::FeedbackSensorSourceValue::RemoteCANcoder)
+            .WithFeedbackSensorSource(ctre::phoenix6::signals::FeedbackSensorSourceValue::RemoteCANcoder)
         );
 
     // Coral intake motor configs
@@ -186,7 +187,7 @@ namespace CoralConstants{
     
     // Arrays for the coral placement heights, and the coral placement angles. Index = Level - 1. (e.g. L1 = [0])
     static constexpr wpi::array<units::length::inch_t, 4U> kCoralPlacementHeights = {2.5_in, 17_in, 28_in, 48.875_in};
-    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementCoralAngles = {0.01_tr, 0.04_tr, .07_tr, .10_tr};//{0.06_tr, 0.09_tr, .12_tr, .15_tr};
+    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementCoralAngles = {.01_tr, .04_tr, .07_tr, .10_tr};//{0.06_tr, 0.09_tr, .12_tr, .15_tr};
     static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementAlgaeAngles = {.04_tr, .04_tr, .04_tr, .04_tr};
     
     static constexpr units::angle::turn_t kCoralIntakeAngle = .25_tr;
@@ -226,7 +227,7 @@ namespace AlgaeConstants{
         .WithFeedback(ctre::phoenix6::configs::FeedbackConfigs{}
             .WithSensorToMechanismRatio(36)
             .WithFeedbackRemoteSensorID(kAlgaeCANCoderPort)
-            .WithFeedbackSensorSource(signals::FeedbackSensorSourceValue::RemoteCANcoder)
+            .WithFeedbackSensorSource(ctre::phoenix6::signals::FeedbackSensorSourceValue::RemoteCANcoder)
         );
 
     // Algae intake motor configs
@@ -290,31 +291,31 @@ namespace ClimberConstants{
     static constexpr ctre::phoenix6::configs::TalonFXConfiguration kClimberMotorConfigs = ctre::phoenix6::configs::TalonFXConfiguration{}
         .WithSlot0(ctre::phoenix6::configs::Slot0Configs{}
             .WithKS(.41)
-            .WithKV(.12)
-            .WithKA(.01)
+            .WithKV(.15)
+            .WithKA(.1)
 
-            .WithKP(4.8)
+            .WithKP(9)
             .WithKI(0)
-            .WithKD(.1)
+            .WithKD(.7)
         )
         .WithMotionMagic(ctre::phoenix6::configs::MotionMagicConfigs{}
-            .WithMotionMagicCruiseVelocity(80_tps)
-            .WithMotionMagicAcceleration(160_tr_per_s_sq)
-            .WithMotionMagicJerk(1600_tr_per_s_cu)
+            .WithMotionMagicCruiseVelocity(120_tps)
+            .WithMotionMagicAcceleration(360_tr_per_s_sq)
+            .WithMotionMagicJerk(2000_tr_per_s_cu)
         )
         .WithFeedback(ctre::phoenix6::configs::FeedbackConfigs{}
             .WithSensorToMechanismRatio(125)
         );
 
 
-    static constexpr units::angle::turn_t kClimberDown = 3_tr;
-    static constexpr units::angle::turn_t kClimberUp = 10_tr;
+    static constexpr units::angle::turn_t kClimberDown = -2_tr;
+    static constexpr units::angle::turn_t kClimberUp = 1.5_tr;
     
 
 
     // Climber angle upper and lower limits
     // Currently limits are conservative
-    static constexpr units::angle::turn_t kLowerLimit = 0_tr;
+    static constexpr units::angle::turn_t kLowerLimit = -15_tr;
     static constexpr units::angle::turn_t kUpperLimit = 15_tr;
 
 }
