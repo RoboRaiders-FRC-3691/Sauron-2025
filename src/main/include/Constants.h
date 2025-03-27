@@ -136,7 +136,7 @@ namespace CoralConstants{
             .WithMotionMagicJerk(1600_tr_per_s_cu)
         )
         .WithFeedback(ctre::phoenix6::configs::FeedbackConfigs{}
-            .WithSensorToMechanismRatio(9) 
+            .WithSensorToMechanismRatio(1) // Old -> 9 
             .WithFeedbackRemoteSensorID(kCoralCANCoderPort)
             .WithFeedbackSensorSource(ctre::phoenix6::signals::FeedbackSensorSourceValue::RemoteCANcoder)
         );
@@ -170,7 +170,7 @@ namespace CoralConstants{
     // Coral CANCoder config
     static constexpr ctre::phoenix6::configs::CANcoderConfiguration kCoralCANCoderConfigs = ctre::phoenix6::configs::CANcoderConfiguration{}
         .WithMagnetSensor(ctre::phoenix6::configs::MagnetSensorConfigs{}
-            .WithMagnetOffset(-.114502_tr)
+            .WithMagnetOffset(0.380615234375_tr)
         );
 
     // Coral angle upper and lower limits
@@ -187,10 +187,10 @@ namespace CoralConstants{
     
     // Arrays for the coral placement heights, and the coral placement angles. Index = Level - 1. (e.g. L1 = [0])
     static constexpr wpi::array<units::length::inch_t, 4U> kCoralPlacementHeights = {2.5_in, 17_in, 28_in, 48.875_in};
-    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementCoralAngles = {.01_tr, .04_tr, .07_tr, .10_tr};//{0.06_tr, 0.09_tr, .12_tr, .15_tr};
-    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementAlgaeAngles = {.04_tr, .04_tr, .04_tr, .04_tr};
+    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementCoralAngles = {-.15_tr, -.12_tr, -.09_tr, -.06_tr};
+    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementAlgaeAngles = {.25_tr, .25_tr, .25_tr, .25_tr};
     
-    static constexpr units::angle::turn_t kCoralIntakeAngle = .25_tr;
+    static constexpr units::angle::turn_t kCoralIntakeAngle = .09_tr;
     static constexpr units::angular_velocity::revolutions_per_minute_t kCoralIntakeVelocity = 3000_rpm;
     static constexpr units::time::second_t kCoralPlacementTime = 3_s;
 }
@@ -225,7 +225,7 @@ namespace AlgaeConstants{
             .WithMotionMagicJerk(1000_tr_per_s_cu)
         )
         .WithFeedback(ctre::phoenix6::configs::FeedbackConfigs{}
-            .WithSensorToMechanismRatio(36)
+            .WithSensorToMechanismRatio(1) // Old -> 36
             .WithFeedbackRemoteSensorID(kAlgaeCANCoderPort)
             .WithFeedbackSensorSource(ctre::phoenix6::signals::FeedbackSensorSourceValue::RemoteCANcoder)
         );
@@ -256,7 +256,7 @@ namespace AlgaeConstants{
     // Algae CANCoder config
     static constexpr ctre::phoenix6::configs::CANcoderConfiguration kAlgaeCANCoderConfigs = ctre::phoenix6::configs::CANcoderConfiguration{}
         .WithMagnetSensor(ctre::phoenix6::configs::MagnetSensorConfigs{}
-            .WithMagnetOffset(.380699_tr)
+            .WithMagnetOffset(0.107421875_tr)
             .WithSensorDirection(ctre::phoenix6::signals::InvertedValue::Clockwise_Positive)
         );
 
@@ -268,8 +268,8 @@ namespace AlgaeConstants{
     
     //Arrays for the algae removal heights, and the algae removal angles. Index = Level - 2. (e.g. L2 = [0]). Note: Algae is only removed from L2 and L3.
     static constexpr wpi::array<units::length::inch_t, 2U> kAlgaeRemovalHeights = {22_in, 38_in};
-    static constexpr wpi::array<units::angle::turn_t, 2U> kAlgaeRemovalCoralAngles = {.32_tr, .32_tr};
-    static constexpr wpi::array<units::angle::turn_t, 2U> kAlgaeRemovalAlgaeAngles = {-0.1_tr, -0.1_tr};
+    static constexpr wpi::array<units::angle::turn_t, 2U> kAlgaeRemovalCoralAngles = {.16_tr, .16_tr};
+    static constexpr wpi::array<units::angle::turn_t, 2U> kAlgaeRemovalAlgaeAngles = {.14_tr, .14_tr};
 
     // Predifined removal velocity and time
     // Currently not used
