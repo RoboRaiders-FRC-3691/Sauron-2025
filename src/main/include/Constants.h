@@ -216,7 +216,7 @@ namespace AlgaeConstants{
             .WithKI(0)
             .WithKD(.25)
 
-            .WithKG(.3)
+            .WithKG(0)
             .WithGravityType(ctre::phoenix6::signals::GravityTypeValue::Arm_Cosine)
         )
         .WithMotionMagic(ctre::phoenix6::configs::MotionMagicConfigs{}
