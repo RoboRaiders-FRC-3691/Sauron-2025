@@ -51,11 +51,18 @@ void RobotContainer::ConfigureBindings()
     m_XboxController.RightBumper().WhileTrue(m_Coral.RunIntake(-1 * CoralConstants::kCoralIntakeVelocity));
     m_XboxController.LeftBumper().WhileTrue(m_Coral.RunIntake(CoralConstants::kCoralIntakeVelocity));
     
+    // Coral Intake Angle
+    m_XboxController.X().OnTrue(m_Coral.SetAngle(CoralConstants::kCoralIntakeAngle));
+
     // Algae controls
     m_XboxController.RightTrigger().WhileTrue(m_Algae.RunIntake(AlgaeConstants::kAlgaeIntakeVelocity));
     m_XboxController.LeftTrigger().WhileTrue(m_Algae.RunIntake(-1 * AlgaeConstants::kAlgaeIntakeVelocity));
 
+    // Algae Intake Angle
+    m_XboxController.B().OnTrue(m_Algae.SetAngle(AlgaeConstants::kAlgaeFloorIntakeAlgaeAngle));
 
+
+    // Reef Positions Coral and Algae
     m_MacroPad.GetKey(4,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 0));
     m_MacroPad.GetKey(3,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 1));
     m_MacroPad.GetKey(2,3).OnTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 2));
@@ -63,9 +70,9 @@ void RobotContainer::ConfigureBindings()
 
     m_MacroPad.GetKey(1,2).OnTrue(ReefCommands::RemoveAlgaeAtLevel(m_Coral, m_Algae, m_elevator, 1));
     m_MacroPad.GetKey(2,2).OnTrue(ReefCommands::RemoveAlgaeAtLevel(m_Coral, m_Algae, m_elevator, 0));
+    m_MacroPad.GetKey(3,2).OnTrue(ReefCommands::AlgaeProcessor(m_Coral, m_Algae, m_elevator));
 
-    // Coral Intake Angle
-    m_XboxController.X().OnTrue(m_Coral.SetAngle(CoralConstants::kCoralIntakeAngle));
+
 
     // Climber controls
     m_MacroPad.GetKey(1, 1).OnTrue(m_Climber.SetAngle(ClimberConstants::kClimberUp));
@@ -73,7 +80,6 @@ void RobotContainer::ConfigureBindings()
 
 
     // Debug/Testing controls (likely remove before Minneapolis)
-    m_XboxController.B().OnTrue(m_Coral.SetAngle(.27_tr));
     m_XboxController.A().WhileTrue(m_elevator.SetHeight(5_in));
 
     // Testing pathfind to position

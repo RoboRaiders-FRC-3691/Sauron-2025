@@ -81,12 +81,16 @@ namespace ElevatorConstants{
     // Elevator motor configs
     static constexpr ctre::phoenix6::configs::TalonFXConfiguration kElevatorMotorConfigs = ctre::phoenix6::configs::TalonFXConfiguration{}
         .WithSlot0(ctre::phoenix6::configs::Slot0Configs{}
-            .WithKS(.41)
-            .WithKV(.12)
-            .WithKA(.01)
-            .WithKP(4.8)
+            .WithKS(.21)
+            .WithKV(.2)
+            .WithKA(.025)
+
+            .WithKP(5)
             .WithKI(0)
-            .WithKD(.1)
+            .WithKD(.3)
+
+            .WithKG(.57)
+            .WithGravityType(ctre::phoenix6::signals::GravityTypeValue::Elevator_Static)
         )
         .WithMotionMagic(ctre::phoenix6::configs::MotionMagicConfigs{}
             .WithMotionMagicCruiseVelocity(150_tps)
@@ -99,7 +103,7 @@ namespace ElevatorConstants{
 
     // Elevator height upper and lower limits
     static constexpr units::inch_t kLowerLimit = .75_in;
-    static constexpr units::inch_t kUpperLimit = 48.875_in;
+    static constexpr units::inch_t kUpperLimit = 49_in;
 
 }
 
@@ -119,15 +123,15 @@ namespace CoralConstants{
     // Coral angle motor configs
     static constexpr ctre::phoenix6::configs::TalonFXConfiguration kCoralAngleConfigs = ctre::phoenix6::configs::TalonFXConfiguration{}
         .WithSlot0(ctre::phoenix6::configs::Slot0Configs{}
-            .WithKS(.45)
-            .WithKV(.17)
+            .WithKS(.16)
+            .WithKV(.1)
             .WithKA(.01)
 
-            .WithKP(5)
+            .WithKP(9)
             .WithKI(0)
-            .WithKD(.12)
+            .WithKD(.3)
 
-            .WithKG(0)
+            .WithKG(.04)
             .WithGravityType(ctre::phoenix6::signals::GravityTypeValue::Arm_Cosine)
         )
         .WithMotionMagic(ctre::phoenix6::configs::MotionMagicConfigs{}
@@ -170,7 +174,8 @@ namespace CoralConstants{
     // Coral CANCoder config
     static constexpr ctre::phoenix6::configs::CANcoderConfiguration kCoralCANCoderConfigs = ctre::phoenix6::configs::CANcoderConfiguration{}
         .WithMagnetSensor(ctre::phoenix6::configs::MagnetSensorConfigs{}
-            .WithMagnetOffset(0.380615234375_tr)
+            .WithMagnetOffset(0.051514_tr)
+            .WithSensorDirection(ctre::phoenix6::signals::InvertedValue::CounterClockwise_Positive)
         );
 
     // Coral angle upper and lower limits
@@ -186,11 +191,11 @@ namespace CoralConstants{
         );
     
     // Arrays for the coral placement heights, and the coral placement angles. Index = Level - 1. (e.g. L1 = [0])
-    static constexpr wpi::array<units::length::inch_t, 4U> kCoralPlacementHeights = {2.5_in, 17_in, 28_in, 48.875_in};
-    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementCoralAngles = {-.15_tr, -.12_tr, -.09_tr, -.06_tr};
-    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementAlgaeAngles = {.25_tr, .25_tr, .25_tr, .25_tr};
+    static constexpr wpi::array<units::length::inch_t, 4U> kCoralPlacementHeights = {2.5_in, 9_in, 25_in, 49_in};
+    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementCoralAngles = {-.15_tr, -.09_tr, -.09_tr, -.06_tr};
+    static constexpr wpi::array<units::angle::turn_t, 4U> kCoralPlacementAlgaeAngles = {.24_tr, .24_tr, .24_tr, .24_tr};
     
-    static constexpr units::angle::turn_t kCoralIntakeAngle = .09_tr;
+    static constexpr units::angle::turn_t kCoralIntakeAngle = .10_tr;
     static constexpr units::angular_velocity::revolutions_per_minute_t kCoralIntakeVelocity = 3000_rpm;
     static constexpr units::time::second_t kCoralPlacementTime = 3_s;
 }
@@ -208,15 +213,15 @@ namespace AlgaeConstants{
     // Algae angle motor configs
     static constexpr ctre::phoenix6::configs::TalonFXConfiguration kAlgaeAngleConfigs = ctre::phoenix6::configs::TalonFXConfiguration{}
         .WithSlot0(ctre::phoenix6::configs::Slot0Configs{}
-            .WithKS(.25)
-            .WithKV(.20)
+            .WithKS(.15)
+            .WithKV(.2)
             .WithKA(.015)
             
             .WithKP(8.5)
             .WithKI(0)
             .WithKD(.25)
 
-            .WithKG(0)
+            .WithKG(.28)
             .WithGravityType(ctre::phoenix6::signals::GravityTypeValue::Arm_Cosine)
         )
         .WithMotionMagic(ctre::phoenix6::configs::MotionMagicConfigs{}
@@ -256,7 +261,7 @@ namespace AlgaeConstants{
     // Algae CANCoder config
     static constexpr ctre::phoenix6::configs::CANcoderConfiguration kAlgaeCANCoderConfigs = ctre::phoenix6::configs::CANcoderConfiguration{}
         .WithMagnetSensor(ctre::phoenix6::configs::MagnetSensorConfigs{}
-            .WithMagnetOffset(0.107421875_tr)
+            .WithMagnetOffset(0.286377_tr)
             .WithSensorDirection(ctre::phoenix6::signals::InvertedValue::Clockwise_Positive)
         );
 
@@ -270,6 +275,12 @@ namespace AlgaeConstants{
     static constexpr wpi::array<units::length::inch_t, 2U> kAlgaeRemovalHeights = {22_in, 38_in};
     static constexpr wpi::array<units::angle::turn_t, 2U> kAlgaeRemovalCoralAngles = {.16_tr, .16_tr};
     static constexpr wpi::array<units::angle::turn_t, 2U> kAlgaeRemovalAlgaeAngles = {.14_tr, .14_tr};
+
+    static constexpr units::length::inch_t kAlgaeProcessorHeight = 5_in;
+    static constexpr units::angle::turn_t kAlgaeProcessorCoralAngle = .16_tr;
+    static constexpr units::angle::turn_t kAlgaeProcessorAlgaeAngle = .045_tr;
+
+    static constexpr units::angle::turn_t kAlgaeFloorIntakeAlgaeAngle = .045_tr;
 
     // Predifined removal velocity and time
     // Currently not used
