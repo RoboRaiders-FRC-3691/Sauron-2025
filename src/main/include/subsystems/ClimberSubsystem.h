@@ -40,4 +40,6 @@ class ClimberSubsystem : public frc2::SubsystemBase {
         // Declare motion magic request
         ctre::phoenix6::controls::MotionMagicVoltage m_PoseRequest;
 
+        // Declare Climber Cam
+        cs::UsbCamera m_ClimberCam;
 };
