@@ -79,8 +79,8 @@ void RobotContainer::ConfigureBindings()
     m_MacroPad.GetKey(2, 1).OnTrue(m_Climber.SetAngle(ClimberConstants::kClimberDown));
 
 
-    // Debug/Testing controls (likely remove before Minneapolis)
-    m_XboxController.A().WhileTrue(m_elevator.SetHeight(5_in));
+    // Elevator lowest level driver overide
+    m_XboxController.A().WhileTrue(ReefCommands::PlaceCoralAtLevel(m_Coral, m_Algae, m_elevator, 0));
 
     // Testing pathfind to position
     (m_XboxController.Back() && m_XboxController.POVRight()).OnTrue(drivetrain.ReefLineUp('A'));

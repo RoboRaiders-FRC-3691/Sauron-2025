@@ -301,8 +301,11 @@ namespace ClimberConstants{
     // Climber camera port
     static constexpr int kClimberCameraPort = 0; 
 
-    // Climber motor configs (sensor to mechanism ratio currently wrong at 1:1)
+    // Climber motor configs
     static constexpr ctre::phoenix6::configs::TalonFXConfiguration kClimberMotorConfigs = ctre::phoenix6::configs::TalonFXConfiguration{}
+        .WithMotorOutput(ctre::phoenix6::configs::MotorOutputConfigs{}
+            .WithNeutralMode(ctre::phoenix6::signals::NeutralModeValue::Brake)
+        )
         .WithSlot0(ctre::phoenix6::configs::Slot0Configs{}
             .WithKS(.41)
             .WithKV(.15)

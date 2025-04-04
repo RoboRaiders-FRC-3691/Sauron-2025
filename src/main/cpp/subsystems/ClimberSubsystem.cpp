@@ -5,7 +5,7 @@ using namespace ClimberConstants;
 
 ClimberSubsystem::ClimberSubsystem() : ClimbMotor{kClimberMotorPort, kClimberCANLoop}, m_PoseRequest(0_tr){
     ClimbMotor.GetConfigurator().Apply(kClimberMotorConfigs);
-    m_ClimberCamera = frc::CameraServer::StartAutomaticCapture("ClimberCam Stream", kClimberCameraPort);
+    m_Camera = frc::CameraServer::StartAutomaticCapture("ClimberCam Stream (Unprocessed)", kClimberCameraPort);
 }
 
 void ClimberSubsystem::Periodic(){

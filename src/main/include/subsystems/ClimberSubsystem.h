@@ -13,6 +13,8 @@
 #include "ctre/phoenix6/configs/Configs.hpp"
 #include "ctre/phoenix6/configs/Configurator.hpp"
 
+#include <cameraserver/CameraServer.h>
+
 #include "Constants.h"
 
 class ClimberSubsystem : public frc2::SubsystemBase {
@@ -41,5 +43,5 @@ class ClimberSubsystem : public frc2::SubsystemBase {
         ctre::phoenix6::controls::MotionMagicVoltage m_PoseRequest;
 
         // Declare Climber Cam
-        cs::UsbCamera m_ClimberCam;
+        cs::UsbCamera m_Camera;
 };
