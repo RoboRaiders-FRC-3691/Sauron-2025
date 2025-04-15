@@ -307,18 +307,18 @@ namespace ClimberConstants{
             .WithNeutralMode(ctre::phoenix6::signals::NeutralModeValue::Brake)
         )
         .WithSlot0(ctre::phoenix6::configs::Slot0Configs{}
-            .WithKS(.41)
-            .WithKV(.15)
-            .WithKA(.1)
+            .WithKS(.6)
+            .WithKV(.25)
+            .WithKA(.15)
 
-            .WithKP(9)
+            .WithKP(15)
             .WithKI(0)
-            .WithKD(.7)
+            .WithKD(1)
         )
         .WithMotionMagic(ctre::phoenix6::configs::MotionMagicConfigs{}
-            .WithMotionMagicCruiseVelocity(120_tps)
-            .WithMotionMagicAcceleration(360_tr_per_s_sq)
-            .WithMotionMagicJerk(2000_tr_per_s_cu)
+            .WithMotionMagicCruiseVelocity(24_tps)
+            .WithMotionMagicAcceleration(48_tr_per_s_sq)
+            .WithMotionMagicJerk(100_tr_per_s_cu)
         )
         .WithFeedback(ctre::phoenix6::configs::FeedbackConfigs{}
             .WithSensorToMechanismRatio(125)
@@ -326,7 +326,7 @@ namespace ClimberConstants{
 
 
     static constexpr units::angle::turn_t kClimberDown = -2_tr;
-    static constexpr units::angle::turn_t kClimberUp = 1.5_tr;
+    static constexpr units::angle::turn_t kClimberUp = 1.9_tr;
     
 
 
